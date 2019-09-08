@@ -318,7 +318,7 @@ def main(args):
         cb=command.split('\n')
         for i in cb:
             if i!='':
-            output = game.command(i[0:-5])
+                output = game.command(i[0:-5])
     test_shown(s.recv(1024))
         
 if __name__=="__main__":
