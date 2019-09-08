@@ -315,6 +315,7 @@ def main(args):
         command=command[0:-6]
         command=command.decode()
         output = game.command(command)
+    test_shown(s.recv(1024))
         
 if __name__=="__main__":
     main(sys.argv[1:])
