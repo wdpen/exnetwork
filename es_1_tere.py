@@ -223,7 +223,9 @@ def socket_print(strr):
     for i in b[0:-1]:
         i+=b'\n'
         s.send(i)
+        test_shown(i)
     s.send(b[-1]+b'<EOL>\n')
+    test_shown(b[-1]+b'<EOL>\n')
     #print(strr)
 
 class EscapeRoomGame:
