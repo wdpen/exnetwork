@@ -314,9 +314,10 @@ def main(args):
         #s.send(b">> ")
         command=s.recv(1024)
         test_shown(command)
-        command=command[0:-6]
         command=command.decode()
-        output = game.command(command)
+        cb=command.split('\n')
+        for i in cb
+            output = game.command(i[0:-5])
     test_shown(s.recv(1024))
         
 if __name__=="__main__":
