@@ -317,6 +317,7 @@ def main(args):
         command=command.decode()
         cb=command.split('\n')
         for i in cb:
+            if i!='':
             output = game.command(i[0:-5])
     test_shown(s.recv(1024))
         
