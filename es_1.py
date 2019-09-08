@@ -286,7 +286,7 @@ class EscapeRoomGame:
 def main(args):
     global s
     s=socket.socket()
-    a=s.connect(('localhost',2345))
+    a=s.connect(('192.168.200.52',19002))
     s.recv(1024)
     s.send(b'Haoshuai Ding')
     s.recv(1024)
