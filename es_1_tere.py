@@ -306,6 +306,7 @@ def main(args):
     test_shown(s.recv(1024))
     s.send(b'open door<EOL>\n')
     test_shown(s.recv(1024))
+    test_shown(s.recv(1024))
     time.sleep(0.5)    
     game = EscapeRoomGame()
     game.create_game(cheat=("--cheat" in args))
