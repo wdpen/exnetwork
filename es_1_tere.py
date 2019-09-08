@@ -316,7 +316,7 @@ def main(args):
         test_shown(command)
         command=command.decode()
         cb=command.split('\n')
-        for i in cb
+        for i in cb:
             output = game.command(i[0:-5])
     test_shown(s.recv(1024))
         
