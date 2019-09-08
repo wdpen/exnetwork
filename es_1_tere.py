@@ -212,7 +212,7 @@ def advance_time(room, clock):
     room["description"] = create_room_description(room)
     return event
 
-def test_shown(fg)
+def test_shown(fg):
     fg=fg.decode()
     print(fg)
 
