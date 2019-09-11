@@ -324,7 +324,7 @@ class EchoServer(asyncio.Protocol):
 
 if __name__ == "__main__":
 	loop = asyncio.get_event_loop()
-	coro = loop.create_server(EchoServer,'localhost',1810)
+	coro = loop.create_server(EchoServer,'192.168.200.119',1810)
 	server = loop.run_until_complete(coro)
 
 	'''try:
