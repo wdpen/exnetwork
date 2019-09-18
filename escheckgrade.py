@@ -19,7 +19,7 @@ class EchoClient(asyncio.Protocol):
 				seli=line.split(' ')
 				if 'autograde' in seli:
 					self.transport.write(('RESULT,'+self.test_id+'<EOL>\n').encode())
-					print(('RESULT,'+self.test_id+'<EOL>\n').encode())
+					#print(('RESULT,'+self.test_id+'<EOL>\n').encode())
 					#self.transport.write(('RESULT,ecfc531906978e1f2ad19b9aadfb728f3c8de39cd9c0a4f585363b2610ba33cd<EOL>\n').encode())
 					return
 
@@ -27,7 +27,8 @@ if __name__ == "__main__":
 	sw=sys.argv[1:]
 	loop = asyncio.get_event_loop()
 	#coro = playground.create_connection(EchoClient(sw[0]),'20194.0.0.19000',19005)
-	coro = playground.create_connection(lambda:EchoClient(sw[0]),'20194.0.0.19000',19005)
+	#'20194.0.0.19000',19005
+	coro = playground.create_connection(lambda:EchoClient(sw[0]),sw[1],int(sw[2]))
 	client = loop.run_until_complete(coro)
 
 	try:
