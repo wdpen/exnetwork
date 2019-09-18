@@ -3,8 +3,9 @@ import random, sys, time
 import playground
 
 class EchoClient(asyncio.Protocol):	
-	def __init__(self,test_id):
-		self.test_id=test_id
+	def __init__(self):
+		pass
+		#self.test_id=test_id
 
 	def connection_made(self, transport):
 		self.transport = transport
@@ -25,7 +26,8 @@ class EchoClient(asyncio.Protocol):
 if __name__ == "__main__":
 	sw=sys.argv[1:]
 	loop = asyncio.get_event_loop()
-	coro = playground.create_connection(EchoClient(sw[0]),'20194.0.0.19000',19005)
+	#coro = playground.create_connection(EchoClient(sw[0]),'20194.0.0.19000',19005)
+	coro = playground.create_connection(EchoClient,'20194.0.0.19000',19005)
 	client = loop.run_until_complete(coro)
 
 	try:
