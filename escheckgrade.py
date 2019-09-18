@@ -2,6 +2,11 @@ import socket, asyncio
 import random, sys, time
 import playground
 
+#Automatic check if the exercise has passed or not
+#Input arguments:  test_id host port
+
+#WARNING: this is for the Playground version, not for normal TCP/IP version!
+
 class EchoClient(asyncio.Protocol):	
 	def __init__(self,test_id):
 		self.test_id=test_id
@@ -25,18 +30,21 @@ class EchoClient(asyncio.Protocol):
 
 if __name__ == "__main__":
 	sw=sys.argv[1:]
-	loop = asyncio.get_event_loop()
-	#coro = playground.create_connection(EchoClient(sw[0]),'20194.0.0.19000',19005)
-	#'20194.0.0.19000',19005
-	coro = playground.create_connection(lambda:EchoClient(sw[0]),sw[1],int(sw[2]))
-	client = loop.run_until_complete(coro)
+	if sw[1]=='help'
+		print('ONLY for Playground. Input arguments:  test_id host port')
+	else:
+		loop = asyncio.get_event_loop()
+		#coro = playground.create_connection(EchoClient(sw[0]),'20194.0.0.19000',19005)
+		#'20194.0.0.19000',19005
+		coro = playground.create_connection(lambda:EchoClient(sw[0]),sw[1],int(sw[2]))
+		client = loop.run_until_complete(coro)
 
-	try:
-		loop.run_forever()
-	except KeyboardInterrupt:
-		loop.close()
+		try:
+			loop.run_forever()
+		except KeyboardInterrupt:
+			loop.close()
 	#client.close()
 	#loop.run_until_complete(client.close())
 	#loop.run_forever()
-	
-	loop.close()
+		
+		loop.close()
