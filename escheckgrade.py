@@ -3,8 +3,8 @@ import random, sys, time
 import playground
 
 class EchoClient(asyncio.Protocol):	
-	def __init__(self):
-		pass
+	def __init__(self,test_id):
+		self.test_id=test_id
 
 	def connection_made(self, transport):
 		self.transport = transport
@@ -18,12 +18,13 @@ class EchoClient(asyncio.Protocol):
 			if line!='':
 				seli=line.split(' ')
 				if 'autograde' in seli:
-					self.transport.write("RESULT,ecfc531906978e1f2ad19b9aadfb728f3c8de39cd9c0a4f585363b2610ba33cd<EOL>\n".encode())
+					self.transport.write(('RESULT,'+self.test_id+'<EOL>\n').encode())
 					return
 
 if __name__ == "__main__":
+	sw=agrv[1:]
 	loop = asyncio.get_event_loop()
-	coro = playground.create_connection(EchoClient,'20194.0.0.19000',19005)
+	coro = playground.create_connection(EchoClient(sw[1]),'20194.0.0.19000',19005)
 	client = loop.run_until_complete(coro)
 
 	try:
