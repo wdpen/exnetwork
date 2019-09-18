@@ -4,6 +4,7 @@ import playground
 
 class EchoClient(asyncio.Protocol):	
 	def __init__(self):
+		pass
 
 	def connection_made(self, transport):
 		self.transport = transport
