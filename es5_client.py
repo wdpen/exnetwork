@@ -9,11 +9,11 @@ class EchoClient(asyncio.Protocol):
 	def connection_made(self, transport):
 		print('connection_made')
 		self.transport = transport
-		self.transport.write('<EOL>\n')
+		self.transport.write(b'<EOL>\n')
 
 	def data_received(self, data):
 		print(data)
-		self.transport.write('sending')
+		self.transport.write(b'sending')
 
 
 if __name__ == "__main__":
