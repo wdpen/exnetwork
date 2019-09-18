@@ -7,7 +7,7 @@ class EchoClient(asyncio.Protocol):
 		pass
 
 	def connection_made(self, transport):
-		print('sdfs')
+		print('connection_made')
 		self.transport = transport
 		self.transport.write('<EOL>\n')
 
