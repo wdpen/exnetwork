@@ -19,6 +19,7 @@ class EchoClient(asyncio.Protocol):
 				seli=line.split(' ')
 				if 'autograde' in seli:
 					self.transport.write(('RESULT,'+self.test_id+'<EOL>\n').encode())
+					print(('RESULT,'+self.test_id+'<EOL>\n').encode())
 					#self.transport.write(('RESULT,ecfc531906978e1f2ad19b9aadfb728f3c8de39cd9c0a4f585363b2610ba33cd<EOL>\n').encode())
 					return
 
