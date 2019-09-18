@@ -30,7 +30,7 @@ class EchoClient(asyncio.Protocol):
 
 if __name__ == "__main__":
 	sw=sys.argv[1:]
-	if sw[1]=='help':
+	if sw[0]=='help':
 		print('ONLY for Playground. Input arguments:  test_id host port')
 	else:
 		loop = asyncio.get_event_loop()
