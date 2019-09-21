@@ -69,6 +69,7 @@ class EchoClient(asyncio.Protocol):
 		pack1.email='dhaoshu1@jhu.edu'
 		pack1.port=1810
 		pack1.packet_file=b''
+		print(pack1)
 		self.transport.write(pack1.__serialize__())
 
 	def data_received(self, data):
