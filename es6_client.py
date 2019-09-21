@@ -73,6 +73,7 @@ class EchoClient(asyncio.Protocol):
 		self.transport.write(pack1.__serialize__())
 
 	def data_received(self, data):
+		print('reve sth')
 		dd=AutogradeTestStatus.Deserializer()
 		for recvpack in dd.nextPackets():
 			print(recvpack.test_id,recvpack.submit_status,recvpack.client_status,recvpack.server_status,recvpack.error)
