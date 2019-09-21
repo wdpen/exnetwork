@@ -64,8 +64,8 @@ class EchoClient(asyncio.Protocol):
 	def connection_made(self, transport):
 		self.transport = transport
 		pack1=AutogradeStartTest(name='Haoshuai Ding',team=7,email='dhaoshu1@jhu.edu',port=1810,packet_file=b'')
-		with open('es6_mypacket.py','rb') as f:
-			pack1.packet_file=f.read()
+		#with open('es6_mypacket.py','rb') as f:
+		#	pack1.packet_file=f.read()
 		print(pack1)
 		self.transport.write(pack1.__serialize__())
 
