@@ -74,7 +74,6 @@ class EchoClient(asyncio.Protocol):
 
 	def data_received(self, data):
 		print('reve sth')
-		print(data)
 		dd=AutogradeTestStatus.Deserializer()
 		dd.update(data)
 		for recvpack in dd.nextPackets():
