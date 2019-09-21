@@ -5,7 +5,7 @@ from playground.network.packet.fieldtypes import UINT8, STRING, BUFFER, UINT16, 
 from playground.network.common import PlaygroundAddress
 from playground.network.packet import PacketType
 from playground.network.packet.fieldtypes.attributes import Optional
-
+import es6_mypacket
 
 class AutogradeStartTest(PacketType):
     DEFINITION_IDENTIFIER = "20194.exercise6.autogradesubmit"
@@ -63,12 +63,9 @@ class EchoClient(asyncio.Protocol):
 
 	def connection_made(self, transport):
 		self.transport = transport
-		pack1=AutogradeStartTest()
-		pack1.name='Haoshuai Ding'
-		pack1.team=7
-		pack1.email='dhaoshu1@jhu.edu'
-		pack1.port=1810
-		pack1.packet_file=b''
+		pack1=AutogradeStartTest(name='Haoshuai Ding',team=7,email='dhaoshu1@jhu.edu',port=1810,packet_file=b'')
+		with open('es6_mypacket.py','rb') as f:
+			pack1.packet_file=f.read()
 		print(pack1)
 		self.transport.write(pack1.__serialize__())
 
