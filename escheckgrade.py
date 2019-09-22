@@ -1,11 +1,32 @@
 import socket, asyncio
 import random, sys, time
 import playground
+from playground.network.packet.fieldtypes import UINT8, STRING, BUFFER, UINT16, BOOL
+from playground.network.common import PlaygroundAddress
+from playground.network.packet import PacketType
+from playground.network.packet.fieldtypes.attributes import Optional
 
 #Automatic check if the exercise has passed or not
 #Input arguments:  test_id host port
 
 #WARNING: this is for the Playground version, not for normal TCP/IP version!
+
+class AutogradeResultRequest(PacketType):
+    DEFINITION_IDENTIFIER = "20194.exercise6.autograderesult"
+    DEFINITION_VERSION = "1.0"
+    
+    FIELDS = [
+        ("test_id", STRING)
+    ]
+    
+class AutogradeResultResponse(PacketType):
+    DEFINITION_IDENTIFIER = "20194.exercise6.autograderesultresponse"
+    DEFINITION_VERSION = "1.0"
+    
+    FIELDS = [
+        ("test_id", STRING),
+        ("passed", BOOL),
+    ]
 
 class EchoClient(asyncio.Protocol):	
 	def __init__(self,test_id):
@@ -13,21 +34,17 @@ class EchoClient(asyncio.Protocol):
 
 	def connection_made(self, transport):
 		self.transport = transport
-		self.transport.write('<EOL>\n'.encode())
+		pack1==AutogradeResultRequest(self.test_id)
+		self.transport.write(pack1.__serialize__())
+		print('requested send')
 
 	def data_received(self, data):
 		print(data)
-		data=data.decode()
-		data=data.split('<EOL>\n')
-		for line in data:
-			if line!='':
-				seli=line.split(' ')
-				if 'autograde' in seli:
-					self.transport.write(('RESULT,'+self.test_id+'<EOL>\n').encode())
-					#print(('RESULT,'+self.test_id+'<EOL>\n').encode())
-					#self.transport.write(('RESULT,ecfc531906978e1f2ad19b9aadfb728f3c8de39cd9c0a4f585363b2610ba33cd<EOL>\n').encode())
-					return
-
+		dd=AutogradeResultResponse.Deserializer()
+		dd.update(data)
+		for recvpack in dd.nextPackets():
+			print(recvpack.test_id,'\n',recvpack.passed)
+		
 if __name__ == "__main__":
 	sw=sys.argv[1:]
 	if sw[0]=='help':
