@@ -83,7 +83,11 @@ class EchoClient(asyncio.Protocol):
 		for recvpack in dd.nextPackets():
 			print(recvpack.DEFINITION_IDENTIFIER)
 			print(recvpack.test_id,recvpack.submit_status,recvpack.client_status,recvpack.server_status,recvpack.error)
-
+		dd=es6_mypacket.GameResponsePacket.Deserializer()
+		dd.update(data)
+		for recvpack in dd.nextPackets():
+			print(recvpack.DEFINITION_IDENTIFIER)
+			print(recvpack.response,recvpack.statusgame)
 
 
 if __name__ == "__main__":
