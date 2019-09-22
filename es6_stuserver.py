@@ -367,7 +367,7 @@ class EchoServer(asyncio.Protocol):
             asyncio.ensure_future(a)
 
     def data_received(self, data):
-        #print(data)
+        print(data)
         if self.game.status == "playing":
             dd=es6_mypacket.GameCommandPacket.Deserializer()
             dd.update(date)
