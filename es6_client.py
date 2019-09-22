@@ -71,8 +71,8 @@ class EchoClient(asyncio.Protocol):
 		pack1.port=1080
 		pack1.packet_file=b''
 		'''
-		#with open('es6_mypacket.py','rb') as f:
-		#	pack1.packet_file=f.read()
+		with open('es6_mypacket.py','rb') as f:
+			pack1.packet_file=f.read()
 		print(pack1)
 		self.transport.write(pack1.__serialize__())
 
