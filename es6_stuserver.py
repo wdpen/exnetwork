@@ -372,8 +372,9 @@ class EchoServer(asyncio.Protocol):
             dd1=es6_mypacket.GameCommandPacket.Deserializer()
             dd1.update(date)
             for recvpack in dd1.nextPackets():
-                print(recvpack.commandd)
-                output = self.game.command(recvpack.commandd)
+                if recvpack.commandd!=''
+                    print(recvpack.commandd)
+                    output = self.game.command(recvpack.commandd)
 
     def senddata(self,outdata):
         print('   ',outdata)
