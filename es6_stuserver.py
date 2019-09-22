@@ -372,7 +372,7 @@ class EchoServer(asyncio.Protocol):
             
             dd1=es6_mypacket.GameCommandPacket.Deserializer()
             print(data)
-            dd1.update(date)
+            dd1.update(data)
             
             for recvpack in dd1.nextPackets():
                 if recvpack.commandd!='':
