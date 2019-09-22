@@ -368,17 +368,15 @@ class EchoServer(asyncio.Protocol):
 
     def data_received(self, data):
         
-        if self.game.status == "playing":
-            
+        if self.game.status == "playing":            
             dd1=es6_mypacket.GameCommandPacket.Deserializer()
-            print(data)
-            dd1.update(data)
-            
+            #print(data)
+            dd1.update(data)            
             for recvpack in dd1.nextPackets():
                 if recvpack.commandd!='':
                     print(recvpack.commandd)
                     output = self.game.command(recvpack.commandd)
-        else:
+        if self.game.status!='playing'
             loop.close()
 
     def senddata(self,outdata):

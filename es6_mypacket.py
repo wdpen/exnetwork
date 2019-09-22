@@ -48,7 +48,7 @@ if __name__=="__main__":
    # print(GameResponsePacket.response(lm))
     h=ls.status
     print(lm.commandd, ls.game_over(),h())
-    pp=b'\x00\x00\x00\x00\x00\x00\x00*\xff\xff\xff\xff\xff\xff\xff\xd5\x0fes6.gamecommand\x031.0\x00\x01\x00\x00\x00\x00'
+    pp=b'\x00\x00\x00\x00\x00\x00\x00.\xff\xff\xff\xff\xff\xff\xff\xd1\x0fes6.gamecommand\x031.0\x00\x01\x00\x00\x00\x04look'
     dd1=GameCommandPacket.Deserializer()
     dd1.update(pp)
     for recvpack in dd1.nextPackets():

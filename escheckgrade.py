@@ -44,6 +44,7 @@ class EchoClient(asyncio.Protocol):
 		dd.update(data)
 		for recvpack in dd.nextPackets():
 			print(recvpack.test_id,'\n',recvpack.passed)
+		loop.close()
 		
 if __name__ == "__main__":
 	sw=sys.argv[1:]
