@@ -5,7 +5,7 @@ from playground.network.packet.fieldtypes import UINT8, STRING, BUFFER, UINT16, 
 from playground.network.common import PlaygroundAddress
 from playground.network.packet import PacketType
 from playground.network.packet.fieldtypes.attributes import Optional
-import es6_mypacket
+#import es6_mypacket
 
 class AutogradeStartTest(PacketType):
     DEFINITION_IDENTIFIER = "20194.exercise6.autogradesubmit"
