@@ -54,9 +54,9 @@ class AutogradeResultResponse(PacketType):
 
 class EchoClient(asyncio.Protocol):	
 	def __init__(self):
-		self.escapestep=['look mirror<EOL>\n','get hairpin<EOL>\n','unlock chest with hairpin<EOL>\n',
-							'open chest<EOL>\n','get hammer in chest<EOL>\n','hit flyingkey with hammer<EOL>\n',
-							'get key<EOL>\n','unlock door with key<EOL>\n','open door<EOL>\n']
+		self.escapestep=['look mirror','get hairpin','unlock chest with hairpin',
+							'open chest','get hammer in chest','hit flyingkey with hammer',
+							'get key','unlock door with key','open door']
 		self.es_iter=0;
 		self.es_itst=5;
 		self.fla=0;
