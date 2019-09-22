@@ -77,19 +77,28 @@ class EchoClient(asyncio.Protocol):
 		self.transport.write(pack1.__serialize__())
 
 	def data_received(self, data):
-		
+		#print(data)
 		dd=AutogradeTestStatus.Deserializer()
 		dd.update(data)
 		for recvpack in dd.nextPackets():
 			print(recvpack.DEFINITION_IDENTIFIER)
 			print(recvpack.test_id,recvpack.submit_status,recvpack.client_status,recvpack.server_status,recvpack.error)
 		dd=es6_mypacket.GameResponsePacket.Deserializer()
-		dd.update(data)
-		print(data)
+		dd.update(data)		
 		for recvpack in dd.nextPackets():
-			print(recvpack.DEFINITION_IDENTIFIER)
-			print(recvpack.response,recvpack.statusgame)
-
+			#print(recvpack.DEFINITION_IDENTIFIER)
+			print(recvpack.response, '   ', recvpack.statusgame)
+			if self.es_iter<len(self.escapestep):
+				if self.es_iter!=self.es_itst:
+					packk=es6_mypacket.GameCommandPacket.create_game_command_packet(self.escapestep[self.es_iter])
+					self.transport.write(packk.__serialize__())
+					self.es_iter+=1
+				else:
+					seli=recvpack.response.split(' ')
+					if (seli[-1]=='wall'):
+						packk=es6_mypacket.GameCommandPacket.create_game_command_packet(self.escapestep[self.es_iter])
+						self.transport.write(packk.__serialize__())					
+						self.es_iter+=1
 
 if __name__ == "__main__":
 	loop = asyncio.get_event_loop()
