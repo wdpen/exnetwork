@@ -33,11 +33,10 @@ class EchoClient(asyncio.Protocol):
 		self.test_id=test_id
 
 	def connection_made(self, transport):
-		self.transport = transport
-		print('requested send')
-		pack1==AutogradeResultRequest(test_id=self.test_id)
+		self.transport = transport		
+		pack1=AutogradeResultRequest(test_id=self.test_id)
 		self.transport.write(pack1.__serialize__())
-		
+		print('requested send')
 
 	def data_received(self, data):
 		print(data)
