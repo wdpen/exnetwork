@@ -374,8 +374,6 @@ class EchoServer(asyncio.Protocol):
             for recvpack in dd.nextPackets():
                 print(recvpack.commandd)
                 output = self.game.command(recvpack.commandd)
-        else:
-            loop.close()
 
     def senddata(self,outdata):
         packk=es6_mypacket.GameResponsePacket.create_game_response_packet(outdata, self.game.status)
