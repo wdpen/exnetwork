@@ -375,6 +375,8 @@ class EchoServer(asyncio.Protocol):
                 if recvpack.commandd!='':
                     print(recvpack.commandd)
                     output = self.game.command(recvpack.commandd)
+        else
+            loop.close()
 
     def senddata(self,outdata):
         print('   ',outdata)

@@ -87,14 +87,14 @@ class EchoClient(asyncio.Protocol):
 		dd.update(data)		
 		for recvpack in dd.nextPackets():
 			#print(recvpack.DEFINITION_IDENTIFIER)
-			print(recvpack.response, '   ', recvpack.statusgame)
+			print(recvpack.gameresponse, '   ', recvpack.statusgame)
 			if self.es_iter<len(self.escapestep):
 				if self.es_iter!=self.es_itst:
 					packk=es6_mypacket.GameCommandPacket.create_game_command_packet(self.escapestep[self.es_iter])
 					self.transport.write(packk.__serialize__())
 					self.es_iter+=1
 				else:
-					seli=recvpack.response.split(' ')
+					seli=recvpack.gameresponse.split(' ')
 					if (seli[-1]=='wall'):
 						packk=es6_mypacket.GameCommandPacket.create_game_command_packet(self.escapestep[self.es_iter])
 						self.transport.write(packk.__serialize__())					
