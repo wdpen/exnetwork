@@ -131,14 +131,14 @@ class EchoServer(asyncio.Protocol):
 			if (recvpack.DEFINITION_IDENTIFIER=='gamecommunication') and (zenith_nadir==0):
 				if self.game.status == "playing":
 					if recvpack.commandd!='':
-						print('Sever Received game command:  'recvpack.commandd)
+						print('Sever Received game command:  ', recvpack.commandd)
 						output = self.game.command(recvpack.commandd)
 				if self.game.status!='playing':
 					loop.stop()
 				continue
 
 	def senddata(self,outdata):
-		print('Sent game response message: ',outdata)
+		print('Sent game response message: ', outdata)
 		packk=create_game_response(outdata, self.game.status)
 		self.transport.write(packk.__serialize__())
 
