@@ -175,10 +175,9 @@ class EchoClient(asyncio.Protocol):
 					pack1=create_game_init_packet(self.username)			
 					self.transport.write(pack1.__serialize__())
 					print('Sent username packet.',pack1)
-					#self.transport.write(pack1)
-					
+					#self.transport.write(pack1)					
 					self.fla=1					
-				continue
+
 			if (recvpack.DEFINITION_IDENTIFIER=='requirepaypacket'):
 				print(recvpack.unique_id, recvpack.account. recvpack.amount)
 				password = getpass.getpass("Enter password for {}: ".format(self.username))
@@ -188,7 +187,7 @@ class EchoClient(asyncio.Protocol):
 				pack1= create_game_pay_packet(receipt=result.Receipt, receipt_signature=result.ReceiptSignature)
 				self.transport.write(pack1.__serialize__())
 				print('Sent payment proof packet.')
-				continue
+
 			if (recvpack.DEFINITION_IDENTIFIER=='gamecommunication') and (recvpack.zenith_nadir==1):
 				print(recvpack.gameresponse, '   ', recvpack.statusgame)
 				if (recvpack.gameresponse!='') and (recvpack.statusgame!='dead'):
@@ -205,7 +204,7 @@ class EchoClient(asyncio.Protocol):
 								print('Sent game command: ',self.escapestep[self.es_iter])
 								self.transport.write(packk.__serialize__())					
 								self.es_iter+=1
-				continue
+
 			print('Warning: None of the packet Type fits.')
 
 if __name__ == "__main__":
