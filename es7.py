@@ -174,8 +174,8 @@ class EchoClient(asyncio.Protocol):
 				if (self.fla==0):
 					pack1=create_game_init_packet(self.username)					
 					self.transport.write(pack1.__serialize__())
-					self.fla=1
 					print('Sent username packet.')
+					self.fla=1					
 				continue
 			if (recvpack.DEFINITION_IDENTIFIER=='requirepaypacket'):
 				print(recvpack.unique_id, recvpack.account. recvpack.amount)
