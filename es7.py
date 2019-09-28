@@ -165,7 +165,7 @@ class EchoClient(asyncio.Protocol):
 		self.transport.write(pack1.__serialize__())
 
 	def data_received(self, data):
-		#print(data)
+		print(data)
 		dd=PacketType.Deserializer()
 		dd.update(data)
 		for recvpack in dd.nextPackets():
