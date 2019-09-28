@@ -12,8 +12,7 @@ class InitGamePlayernamePacket(PacketType):
     ]
 
 def create_game_init_packet(u):
-    aa=InitGamePlayernamePacket(username=u)
-    return aa.__serialize__()
+    return InitGamePlayernamePacket(username=u)
 
 def process_game_init(pkt):
     de=PacketType.Deserializer()
@@ -25,6 +24,7 @@ def process_game_init(pkt):
             return recvpack.username
         else:
             return False
+    return False
             #raise Exception('Wrong packet type input.')
 
 
