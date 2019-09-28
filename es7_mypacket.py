@@ -12,12 +12,14 @@ class InitGamePlayernamePacket(PacketType):
     ]
 
 def create_game_init_packet(u):
-    return InitGamePlayernamePacket(username=u)
+    #return InitGamePlayernamePacket(username=u)
+    a=InitGamePlayernamePacket(username=u)
+    return a.__serialize__()
 
 def process_game_init(pkt):
-    #de=PacketType.Deserializer()
-    return b'dhaoshu1'
-    de=InitGamePlayernamePacket.Deserializer()
+    de=PacketType.Deserializer()
+    #return b'dhaoshu1'
+    #de=InitGamePlayernamePacket.Deserializer()
     de.update(pkt)
     for recvpack in de.nextPackets():
         if (recvpack.DEFINITION_IDENTIFIER=='gameinitplayername'):
