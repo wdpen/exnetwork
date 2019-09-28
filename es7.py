@@ -113,7 +113,7 @@ class EchoServer(asyncio.Protocol):
 				print('Server Sent require pay packet.')
 				continue
 			if (recvpack.DEFINITION_IDENTIFIER=='bankreceiptverify'):
-				print('Server Received receipt: 'result.Receipt,result.ReceiptSignature)
+				print('Server Received receipt: ', result.Receipt, result.ReceiptSignature)
 				password = getpass.getpass("Enter password for {}: ".format(self.gameholder))
 				bank_client = BankClientProtocol(bank_cert, self.gameholder, password)
 				if (example_verify(bank_client, recvpack.receipt, recvpack.receipt_signature, self.account, self.amount, self.unique_id)):
