@@ -23,6 +23,7 @@ def process_game_init(pkt):
         if (recvpack.DEFINITION_IDENTIFIER=='gameinitplayername'):
             return recvpack.username
         else:
+            raise Exception('Wrong packet type input.')
             return False
     return False
             #raise Exception('Wrong packet type input.')
