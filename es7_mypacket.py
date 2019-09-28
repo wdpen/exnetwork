@@ -15,14 +15,15 @@ def create_game_init_packet(u):
     return InitGamePlayernamePacket(username=u)
 
 def process_game_init(pkt):
-    de=PacketType.Deserializer()
+    #de=PacketType.Deserializer()
+    de=InitGamePlayernamePacket.Deserializer()
     de.update(pkt)
     for recvpack in de.nextPackets():
         if (recvpack.DEFINITION_IDENTIFIER=='gameinitplayername'):
             return recvpack.username
         else:
-            #return False
-            raise Exception('Wrong packet type input.')
+            return False
+            #raise Exception('Wrong packet type input.')
 
 
 class PaymentInformationPacket(PacketType):
