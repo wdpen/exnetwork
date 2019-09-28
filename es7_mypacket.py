@@ -14,7 +14,7 @@ class InitGamePlayernamePacket(PacketType):
 def create_game_init_packet(u):
     return InitGamePlayernamePacket(username=u)
 
-def process_game_init(pkt):
+def process_game_init_packet(pkt):
     de=PacketType.Deserializer()
     de.update(pkt)
     for recvpack in de.nextPackets():
