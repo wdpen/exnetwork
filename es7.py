@@ -170,7 +170,7 @@ class EchoClient(asyncio.Protocol):
 		dd.update(data)
 		for recvpack in dd.nextPackets():
 			print(recvpack.DEFINITION_IDENTIFIER)
-			if (recvpack.DEFINITION_IDENTIFIER=='20194.exercise6.autogradesubmitresponse'):
+			if recvpack.DEFINITION_IDENTIFIER=='20194.exercise6.autogradesubmitresponse':
 				print(recvpack.test_id,recvpack.submit_status,recvpack.client_status,recvpack.server_status,recvpack.error)
 				if (self.fla==0):
 					pack1=create_game_init_packet(self.username)			
@@ -179,7 +179,8 @@ class EchoClient(asyncio.Protocol):
 					#self.transport.write(pack1)					
 					self.fla=1					
 
-			if (recvpack.DEFINITION_IDENTIFIER=='20194.requirepaypacket'):
+			if recvpack.DEFINITION_IDENTIFIER=='20194.requirepaypacket':
+				print('DDDD')
 				print(recvpack.unique_id, recvpack.account. recvpack.amount)
 				password = getpass.getpass("Enter password for {}: ".format(self.username))
 				bank_client = BankClientProtocol(bank_cert, self.username, password) 
