@@ -84,7 +84,7 @@ class AutogradeTestStatus(PacketType):
 
 	FIELDS = [
 		("test_id", STRING),
-		("submit_status", UINT8),
+		("submit_status", UINT8), 
 		("client_status", UINT8),
 		("server_status", UINT8),
 		("error", STRING({Optional: True}))]
@@ -177,19 +177,19 @@ class EchoClient(asyncio.Protocol):
 					self.transport.write(pack1.__serialize__())
 					print('Sent username packet.',pack1)
 					#self.transport.write(pack1)					
-					self.fla=1					
+					self.fla=1
+				continue					
 
 			if recvpack.DEFINITION_IDENTIFIER=='20194.requirepaypacket':
-				print('DDDD')
-				print(recvpack.unique_id, recvpack.account. recvpack.amount)
-				print('FFFF')
+				print(recvpack.unique_id, recvpack.account, recvpack.amount)
 				password = getpass.getpass("Enter password for {}: ".format(self.username))
 				bank_client = BankClientProtocol(bank_cert, self.username, password) 
 				result = loop.run_until_complete(example_transfer(bank_client, self.useraccount, recvpack.account, recvpack.amount, recvpack.unique_id))
-				print(type(result.Receipt),type(result.ReceiptSignature))
+				print(type(result.Receipt), type(result.ReceiptSignature))
 				pack1= create_game_pay_packet(receipt=result.Receipt, receipt_signature=result.ReceiptSignature)
 				self.transport.write(pack1.__serialize__())
 				print('Sent payment proof packet.')
+				continue
 
 			if (recvpack.DEFINITION_IDENTIFIER=='gamecommunication') and (recvpack.zenith_nadir==1):
 				print(recvpack.gameresponse, '   ', recvpack.statusgame)
@@ -207,6 +207,7 @@ class EchoClient(asyncio.Protocol):
 								print('Sent game command: ',self.escapestep[self.es_iter])
 								self.transport.write(packk.__serialize__())					
 								self.es_iter+=1
+				continue
 
 			print('Warning: None of the packet Type fits.')
 

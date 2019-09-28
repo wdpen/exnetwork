@@ -15,10 +15,10 @@ def create_game_init_packet(u):
     return InitGamePlayernamePacket(username=u)
 
 def process_game_init(pkt):
-    return 'dhaoshu1'
-    de=PacketType.Deserializer()
+    #return 'dhaoshu1'
+    #de=PacketType.Deserializer()
     #return b'dhaoshu1'
-    #de=InitGamePlayernamePacket.Deserializer()
+    de=InitGamePlayernamePacket.Deserializer()
     de.update(pkt)
     for recvpack in de.nextPackets():
         if (recvpack.DEFINITION_IDENTIFIER=='gameinitplayername'):
