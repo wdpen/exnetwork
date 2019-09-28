@@ -21,7 +21,9 @@ def process_game_init(pkt):
         if (recvpack.DEFINITION_IDENTIFIER=='gameinitplayername'):
             return recvpack.usename
         else:
-            raise Exception('Wrong packet type input.')
+            return False
+            #raise Exception('Wrong packet type input.')
+
 
 class PaymentInformationPacket(PacketType):
     DEFINITION_IDENTIFIER = 'requirepaypacket'
@@ -43,7 +45,9 @@ def process_game_require_pay_packet(pkt):
         if (recvpack.DEFINITION_IDENTIFIER=='requirepaypacket'):
             return recvpack.unique_id, recvpack.account, recvpack.amount
         else:
-            raise Exception('Wrong packet type input.')   
+            return False
+            #raise Exception('Wrong packet type input.')   
+
 
 class ProvingPaymentPacket(PacketType):
     DEFINITION_IDENTIFIER = 'bankreceiptverify'
@@ -64,8 +68,8 @@ def process_game_pay_packet(pkt):
         if (recvpack.DEFINITION_IDENTIFIER=='bankreceiptverify'):
             return recvpack.receipt, recvpack.receipt_signature
         else:
-            raise Exception('Wrong packet type input.')
-
+            return False
+            #raise Exception('Wrong packet type input.')
 
 
 class GameCommunicationPacket(PacketType):
@@ -92,7 +96,8 @@ def process_game_command(pkt):
         if (recvpack.DEFINITION_IDENTIFIER=='gamecommunication') and (recvpack.zenith_nadir==0):
             return recvpack.commandd
         else:
-            raise Exception('Wrong packet type input.')
+            return False
+            #raise Exception('Wrong packet type input.')
 
 def process_game_response(pkt):
     de=PacketType.Deserializer()
@@ -101,7 +106,8 @@ def process_game_response(pkt):
         if (recvpack.DEFINITION_IDENTIFIER=='gamecommunication') and (recvpack.zenith_nadir==1):
             return recvpack.gameresponse, recvpack.statusgame
         else:
-            raise Exception('Wrong packet type input.')
+            return False
+            #raise Exception('Wrong packet type input.')
 
 if __name__=="__main__":
     lm=GameCommandPacket.create_game_command_packet('sa')
