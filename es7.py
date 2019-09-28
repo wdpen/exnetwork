@@ -172,10 +172,10 @@ class EchoClient(asyncio.Protocol):
 			if (recvpack.DEFINITION_IDENTIFIER=='20194.exercise6.autogradesubmitresponse'):
 				print(recvpack.test_id,recvpack.submit_status,recvpack.client_status,recvpack.server_status,recvpack.error)
 				if (self.fla==0):
-					pack1=create_game_init_packet(self.username)
-					print('Sent username packet.')
+					pack1=create_game_init_packet(self.username)					
 					self.transport.write(pack1.__serialize__())
 					self.fla=1
+					print('Sent username packet.')
 				continue
 			if (recvpack.DEFINITION_IDENTIFIER=='requirepaypacket'):
 				print(recvpack.unique_id, recvpack.account. recvpack.amount)
