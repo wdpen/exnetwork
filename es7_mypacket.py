@@ -16,7 +16,7 @@ def create_game_init_packet(u):
 
 def process_game_init(pkt):
     if (pkt.DEFINITION_IDENTIFIER=='gameinitplayername'):
-        return recvpack.username
+        return pkt.username
     else:
         return False
     #return 'dhaoshu1'
