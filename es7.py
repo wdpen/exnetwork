@@ -169,6 +169,7 @@ class EchoClient(asyncio.Protocol):
 		dd=PacketType.Deserializer()
 		dd.update(data)
 		for recvpack in dd.nextPackets():
+			print(recvpack.DEFINITION_IDENTIFIER)
 			if (recvpack.DEFINITION_IDENTIFIER=='20194.exercise6.autogradesubmitresponse'):
 				print(recvpack.test_id,recvpack.submit_status,recvpack.client_status,recvpack.server_status,recvpack.error)
 				if (self.fla==0):
