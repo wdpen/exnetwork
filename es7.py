@@ -165,7 +165,7 @@ class EchoClient(asyncio.Protocol):
 		self.transport.write(pack1.__serialize__())
 
 	def data_received(self, data):
-		print(data)
+		#print(data)
 		dd=PacketType.Deserializer()
 		dd.update(data)
 		for recvpack in dd.nextPackets():
@@ -204,6 +204,7 @@ class EchoClient(asyncio.Protocol):
 								self.transport.write(packk.__serialize__())					
 								self.es_iter+=1
 				continue
+			print('Warning: None of the packet Type fits.')
 
 if __name__ == "__main__":
 	if ('server' in sys.argv[1:]) or ('client' in sys.argv[1:]):
