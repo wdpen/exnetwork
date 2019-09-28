@@ -8,13 +8,11 @@ class InitGamePlayernamePacket(PacketType):
     DEFINITION_VERSION = '1.0'
 
     FIELDS = [
-        ("username", PacketType)
+        ("username", STRING)
     ]
 
 def create_game_init_packet(u):
-    #return InitGamePlayernamePacket(username=u)
-    a=InitGamePlayernamePacket(username=u)
-    return a.__serialize__()
+    return InitGamePlayernamePacket(username=u)
 
 def process_game_init(pkt):
     de=PacketType.Deserializer()
