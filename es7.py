@@ -179,7 +179,7 @@ class EchoClient(asyncio.Protocol):
 					#self.transport.write(pack1)					
 					self.fla=1					
 
-			if (recvpack.DEFINITION_IDENTIFIER=='requirepaypacket'):
+			if (recvpack.DEFINITION_IDENTIFIER=='20194.requirepaypacket'):
 				print(recvpack.unique_id, recvpack.account. recvpack.amount)
 				password = getpass.getpass("Enter password for {}: ".format(self.username))
 				bank_client = BankClientProtocol(bank_cert, self.username, password) 

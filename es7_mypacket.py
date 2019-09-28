@@ -30,7 +30,7 @@ def process_game_init(pkt):
 
 
 class PaymentInformationPacket(PacketType):
-    DEFINITION_IDENTIFIER = 'requirepaypacket'
+    DEFINITION_IDENTIFIER = '20194.requirepaypacket'
     DEFINITION_VERSION = '1.0'
 
     FIELDS = [
@@ -46,7 +46,7 @@ def process_game_require_pay_packet(pkt):
     de=PacketType.Deserializer()
     de.update(pkt)
     for recvpack in de.nextPackets():
-        if (recvpack.DEFINITION_IDENTIFIER=='requirepaypacket'):
+        if (recvpack.DEFINITION_IDENTIFIER=='20194.requirepaypacket'):
             return recvpack.unique_id, recvpack.account, recvpack.amount
         else:
             return False
