@@ -8,7 +8,7 @@ class InitGamePlayernamePacket(PacketType):
     DEFINITION_VERSION = '1.0'
 
     FIELDS = [
-        ("username", STRING)
+        ("username", BUFFER)
     ]
 
 def create_game_init_packet(u):
@@ -16,7 +16,7 @@ def create_game_init_packet(u):
 
 def process_game_init(pkt):
     #de=PacketType.Deserializer()
-    return 'dhaoshu1'
+    #return 'dhaoshu1'
     de=InitGamePlayernamePacket.Deserializer()
     de.update(pkt)
     for recvpack in de.nextPackets():

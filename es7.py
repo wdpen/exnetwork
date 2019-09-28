@@ -172,7 +172,7 @@ class EchoClient(asyncio.Protocol):
 			if (recvpack.DEFINITION_IDENTIFIER=='20194.exercise6.autogradesubmitresponse'):
 				print(recvpack.test_id,recvpack.submit_status,recvpack.client_status,recvpack.server_status,recvpack.error)
 				if (self.fla==0):
-					pack1=create_game_init_packet(self.username)			
+					pack1=create_game_init_packet(self.username.encode())			
 					self.transport.write(pack1.__serialize__())
 					print('Sent username packet.', pack1.__serialize__())
 					self.fla=1					
