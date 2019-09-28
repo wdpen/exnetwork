@@ -73,7 +73,7 @@ class GameCommunicationPacket(PacketType):
     DEFINITION_VERSION = '1.0'# whatever you want
     #zenith_nadir=0---command;zenith_nadir=1---response;
     FIELDS = [
-        ('zenith_nadir', INT32)
+        ('zenith_nadir', INT32),
         ("commandd", STRING({Optional: True})),
         ('gameresponse',STRING({Optional: True})),
         ('statusgame',STRING({Optional: True}))
