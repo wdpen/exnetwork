@@ -12,7 +12,8 @@ class InitGamePlayernamePacket(PacketType):
     ]
 
 def create_game_init_packet(u):
-    return InitGamePlayernamePacket(username=u)
+    aa=InitGamePlayernamePacket(username=u)
+    return aa.__serialize__()
 
 def process_game_init(pkt):
     de=PacketType.Deserializer()

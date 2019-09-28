@@ -173,9 +173,9 @@ class EchoClient(asyncio.Protocol):
 				print(recvpack.test_id,recvpack.submit_status,recvpack.client_status,recvpack.server_status,recvpack.error)
 				if (self.fla==0):
 					pack1=create_game_init_packet(self.username)			
-					self.transport.write(pack1.__serialize__())
+					#self.transport.write(pack1.__serialize__())
 					print('Sent username packet.',pack1)
-					#self.transport.write(pack1)
+					self.transport.write(pack1)
 					
 					self.fla=1					
 				continue
