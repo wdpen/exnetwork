@@ -19,17 +19,7 @@ def process_game_init(pkt):
         return pkt.username
     else:
         return False
-    #return 'dhaoshu1'
-    #de=PacketType.Deserializer()
-    # de=InitGamePlayernamePacket.Deserializer()
-    # de.update(pkt)
-    # for recvpack in de.nextPackets():
-    #     if (recvpack.DEFINITION_IDENTIFIER=='gameinitplayername'):
-    #         return recvpack.username
-    #     else:
-    #         return False
-    # return False
-            #raise Exception('Wrong packet type input.')
+        #raise Exception('Wrong packet type input.')
 
 
 class PaymentInformationPacket(PacketType):
@@ -46,14 +36,11 @@ def create_game_require_pay_packet(un,ac,am):
     return PaymentInformationPacket(unique_id=un, account=ac, amount=am)
 
 def process_game_require_pay_packet(pkt):
-    de=PacketType.Deserializer()
-    de.update(pkt)
-    for recvpack in de.nextPackets():
-        if (recvpack.DEFINITION_IDENTIFIER=='20194.requirepaypacket'):
-            return recvpack.unique_id, recvpack.account, recvpack.amount
-        else:
-            return False
-            #raise Exception('Wrong packet type input.')   
+    if (pkt.DEFINITION_IDENTIFIER=='20194.requirepaypacket'):
+        return pkt.unique_id, pkt.account, pkt.amount
+    else:
+        return False
+        #raise Exception('Wrong packet type input.')   
 
 
 class ProvingPaymentPacket(PacketType):
@@ -69,14 +56,11 @@ def create_game_pay_packet(re,resi):
     return ProvingPaymentPacket(receipt=re, receipt_signature=resi)
 
 def process_game_pay_packet(pkt):
-    de=PacketType.Deserializer()
-    de.update(pkt)
-    for recvpack in de.nextPackets():
-        if (recvpack.DEFINITION_IDENTIFIER=='bankreceiptverify'):
-            return recvpack.receipt, recvpack.receipt_signature
-        else:
-            return False
-            #raise Exception('Wrong packet type input.')
+    if (pkt.DEFINITION_IDENTIFIER=='bankreceiptverify'):
+        return pkt.receipt, pkt.receipt_signature
+    else:
+        return False
+        #raise Exception('Wrong packet type input.')
 
 
 class GameCommunicationPacket(PacketType):
@@ -97,24 +81,18 @@ def create_game_response(re,st):
     return GameCommunicationPacket(zenith_nadir=1, gameresponse=re, statusgame=st)
 
 def process_game_command(pkt):
-    de=PacketType.Deserializer()
-    de.update(pkt)
-    for recvpack in de.nextPackets():
-        if (recvpack.DEFINITION_IDENTIFIER=='gamecommunication') and (recvpack.zenith_nadir==0):
-            return recvpack.commandd
-        else:
-            return False
-            #raise Exception('Wrong packet type input.')
+    if (pkt.DEFINITION_IDENTIFIER=='gamecommunication') and (pkt.zenith_nadir==0):
+        return pkt.commandd
+    else:
+        return False
+        #raise Exception('Wrong packet type input.')
 
 def process_game_response(pkt):
-    de=PacketType.Deserializer()
-    de.update(pkt)
-    for recvpack in de.nextPackets():
-        if (recvpack.DEFINITION_IDENTIFIER=='gamecommunication') and (recvpack.zenith_nadir==1):
-            return recvpack.gameresponse, recvpack.statusgame
-        else:
-            return False
-            #raise Exception('Wrong packet type input.')
+    if (pkt.DEFINITION_IDENTIFIER=='gamecommunication') and (pkt.zenith_nadir==1):
+        return pkt.gameresponse, pkt.statusgame
+    else:
+        return False
+        #raise Exception('Wrong packet type input.')
 
 if __name__=="__main__":
     lm=GameCommandPacket.create_game_command_packet('sa')

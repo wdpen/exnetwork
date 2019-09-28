@@ -181,7 +181,6 @@ class EchoClient(asyncio.Protocol):
 				continue					
 
 			if recvpack.DEFINITION_IDENTIFIER=='20194.requirepaypacket':
-				raise Exception('!!!!!!')
 				print(recvpack.unique_id, recvpack.account, recvpack.amount)
 				password = getpass.getpass("Enter password for {}: ".format(self.username))
 				bank_client = BankClientProtocol(bank_cert, self.username, password) 
