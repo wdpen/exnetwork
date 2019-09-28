@@ -60,7 +60,7 @@ def example_verify(bank_client, receipt_bytes, signature_bytes, dst, amount, mem
 		return False
 	elif ledger_line.memo(dst) != memo:
 		Print("Invalid memo. Expected {} got {}".format(memo, ledger_line.memo()))
-		Return False
+		return False
 	return True
 
 class AutogradeStartTest(PacketType):
