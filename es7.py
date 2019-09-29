@@ -4,8 +4,11 @@ from playground.network.packet.fieldtypes import STRING, BUFFER, UINT8, UINT16, 
 from playground.network.common import PlaygroundAddress
 from playground.network.packet import PacketType
 from playground.network.packet.fieldtypes.attributes import Optional
+from playground.common.logging import EnablePresetLogging, PRESET_DEBUG, PRESET_VERBOSE
 from es7_mypacket import *
 from escape_room_006 import *
+
+EnablePresetLogging(PRESET_DEBUG)
 
 sys.path.append('../BitPoints-Bank-Playground3/src')
 from CipherUtil import loadCertFromFile
