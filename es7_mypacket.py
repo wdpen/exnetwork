@@ -48,8 +48,8 @@ class ProvingPaymentPacket(PacketType):
     DEFINITION_VERSION = '1.0'
 
     FIELDS = [
-        ("receipt", STRING),
-        ('receipt_signature', STRING),
+        ("receipt", BUFFER),
+        ('receipt_signature', BUFFER),
     ]
 
 def create_game_pay_packet(re,resi):
@@ -64,14 +64,14 @@ def process_game_pay_packet(pkt):
 
 
 class GameCommunicationPacket(PacketType):
-    DEFINITION_IDENTIFIER = 'gamecommunication'# whatever you want
-    DEFINITION_VERSION = '1.0'# whatever you want
+    DEFINITION_IDENTIFIER = 'gamecommunication'
+    DEFINITION_VERSION = '1.0'
     #zenith_nadir=0---command;zenith_nadir=1---response;
     FIELDS = [
         ('zenith_nadir', INT32),
         ("commandd", STRING({Optional: True})),
-        ('gameresponse',STRING({Optional: True})),
-        ('statusgame',STRING({Optional: True}))
+        ('gameresponse', STRING({Optional: True})),
+        ('statusgame', STRING({Optional: True}))
     ]
 
 def create_game_command(c):
@@ -95,20 +95,4 @@ def process_game_response(pkt):
         #raise Exception('Wrong packet type input.')
 
 if __name__=="__main__":
-    lm=GameCommandPacket.create_game_command_packet('sa')
-    #lm.commandd='fg'
-    ls=GameResponsePacket.create_game_response_packet('b','ve')
-    #ls=GameCommandPacket()statusgame
-    #ls.commandd='fgerwr'
-   # print(GameResponsePacket.response(lm))
-    h=ls.status
-    print(lm.commandd, ls.game_over(),h())
-    pp=b'\x00\x00\x00\x00\x00\x00\x00.\xff\xff\xff\xff\xff\xff\xff\xd1\x0fes6.gamecommand\x031.0\x00\x01\x00\x00\x00\x04look'
-    dd1=GameCommandPacket.Deserializer()
-    dd1.update(pp)
-    for recvpack in dd1.nextPackets():
-        if recvpack.commandd=='':
-            print('DDDD')
-        print(recvpack.commandd)
-
-
+    pass
