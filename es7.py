@@ -185,10 +185,10 @@ class EchoClient(asyncio.Protocol):
 
 			if recvpack.DEFINITION_IDENTIFIER=='20194.requirepaypacket':
 				print(recvpack.unique_id, recvpack.account, recvpack.amount)
-				#password = getpass.getpass("Enter password for {}: ".format(self.username))
-				password='dpo%symp8h!onic'
+				password = getpass.getpass("Enter password for {}: ".format(self.username))
 				bank_client = BankClientProtocol(bank_cert, self.username, password) 
-				result = loop.run_until_complete(example_transfer(bank_client, self.useraccount, recvpack.account, recvpack.amount, recvpack.unique_id))
+				#result = loop.run_until_complete(example_transfer(bank_client, self.useraccount, recvpack.account, recvpack.amount, recvpack.unique_id))
+				asyncio.ensure_future(result=example_transfer(bank_client, self.useraccount, recvpack.account, recvpack.amount, recvpack.unique_id))
 				print('BBBBBBBBBBBBBB.')
 				#print(result.Receipt, result.ReceiptSignature)
 				print(type(result.Receipt), type(result.ReceiptSignature))
