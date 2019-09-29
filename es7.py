@@ -92,6 +92,7 @@ async def example_verify(bank_client, receipt_bytes, signature_bytes, dst, amoun
 		print("Invalid memo. Expected {} got {}".format(memo, ledger_line.memo()))
 		flg=False
 	print('DD4')
+	flg=True
 	if flg:
 		print('Server verified the payment, sent starting game response.')
 		gaa.create_game()
