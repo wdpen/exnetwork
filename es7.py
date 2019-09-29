@@ -55,7 +55,7 @@ async def example_transfer(bank_client, src, dst, amount, memo):
 	print('Transfer Money Completed.')
 	print(result.Receipt, result.ReceiptSignature)
 	print(type(result.Receipt), type(result.ReceiptSignature))	
-	#return result
+	return result
 
 def example_verify(bank_client, receipt_bytes, signature_bytes, dst, amount, memo):
 	if not bank_client.verify(receipt_bytes, signature_bytes):
@@ -191,8 +191,8 @@ class EchoClient(asyncio.Protocol):
 				#password = getpass.getpass("Enter password for {}: ".format(self.username))
 				password='dpo%symp8h!onic'
 				bank_client = BankClientProtocol(bank_cert, self.username, password) 
-				result=loop.run_until_complete(example_transfer(bank_client, self.useraccount, recvpack.account, recvpack.amount, recvpack.unique_id))
-				#asyncio.ensure_future(example_transfer(bank_client, self.useraccount, recvpack.account, recvpack.amount, recvpack.unique_id))
+				#result=loop.run_until_complete(example_transfer(bank_client, self.useraccount, recvpack.account, recvpack.amount, recvpack.unique_id))
+				asyncio.ensure_future(example_transfer(bank_client, self.useraccount, recvpack.account, recvpack.amount, recvpack.unique_id))
 				print('BBBBBBBBBBBBBB.')
 				if result:
 					print('BBBBBBBBBBBBBB.')
