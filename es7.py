@@ -64,24 +64,28 @@ async def example_transfer(bank_client, src, dst, amount, memo, transs):
 	return result
 
 def example_verify(bank_client, receipt_bytes, signature_bytes, dst, amount, memo):
-	playground.create_connection(
-			lambda: bank_client,
-			bank_addr,
-			bank_port,
-			family='default'
-		)
-	print("Connected. Logging in.")
-	bank_client.loginToServer()
+	# playground.create_connection(
+	# 		lambda: bank_client,
+	# 		bank_addr,
+	# 		bank_port,
+	# 		family='default'
+	# 	)
+	# print("Connected. Logging in.")
+	# bank_client.loginToServer()
+	print('DD1')
 	if not bank_client.verify(receipt_bytes, signature_bytes):
 		Print("Bad receipt. Not correctly signed by bank")
 		return False
+	print('DD2')
 	ledger_line = LedgerLineStorage.deserialize(receipt_bytes)
+	print('DD3')
 	if ledger_line.getTransactionAmount(dst) != amount:
 		Print("Invalid amount. Expected {} got {}".format(amount, ledger_line.getTransactionAmount(dst)))
 		return False
 	elif ledger_line.memo(dst) != memo:
 		Print("Invalid memo. Expected {} got {}".format(memo, ledger_line.memo()))
 		return False
+	print('DD4')
 	return True
 
 class AutogradeStartTest(PacketType):
