@@ -148,7 +148,7 @@ class EchoServer(asyncio.Protocol):
 		dd=PacketType.Deserializer()
 		dd.update(data)
 		for recvpack in dd.nextPackets():
-			print(recvpack.DEFINITION_IDENTIFIER)
+			#print(recvpack.DEFINITION_IDENTIFIER)
 			if (recvpack.DEFINITION_IDENTIFIER=='gameinitplayername'):
 				print('Server Received username: ',recvpack.username)
 				self.unique_id='Beauty Ball '+str((int(random.random()*10000000)/100))+' '+recvpack.username
@@ -181,9 +181,7 @@ class EchoServer(asyncio.Protocol):
 				# 	print('Server Sent rejected response message.')
 				# 	loop.stop()
 				continue
-			print('HEHE')
-			if (recvpack.DEFINITION_IDENTIFIER=='gamecommunication') and (zenith_nadir==0):
-				print('DFDFDF')
+			if (recvpack.DEFINITION_IDENTIFIER=='gamecommunication') and (recvpackzenith_nadir==0):
 				if self.game.status == "playing":
 					if recvpack.commandd!='':
 						print('Sever Received game command:  ', recvpack.commandd)
