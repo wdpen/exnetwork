@@ -59,7 +59,7 @@ async def example_transfer(bank_client, src, dst, amount, memo, transs):
 	pack1= create_game_pay_packet(result.Receipt, result.ReceiptSignature)
 	transs.write(pack1.__serialize__())
 	print('Sent payment proof packet.')	
-	if not bank_client.verify(result.Receipt, result.ReceiptSignature+b'\\bdv'):
+	if not bank_client.verify(result.Receipt, result.ReceiptSignature):
 		print("TESTING:::Bad receipt. Not correctly signed by bank")
 	else:
 		print("TESTING:::Good receipt.")
