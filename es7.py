@@ -229,7 +229,7 @@ if __name__ == "__main__":
 				coro = playground.create_connection(EchoClient,'20194.0.0.19000',19007)
 				client = loop.run_until_complete(coro)
 			else:
-				return			
+				raise Exception('Not able to process.')			
 		try:
 			loop.run_forever()
 		except KeyboardInterrupt:
