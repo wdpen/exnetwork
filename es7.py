@@ -55,7 +55,7 @@ async def example_transfer(bank_client, src, dst, amount, memo, transs):
 	print('Transfer Money Completed.')
 	print(result.Receipt, result.ReceiptSignature)
 	print(type(result.Receipt), type(result.ReceiptSignature))	
-	pack1= create_game_pay_packet(receipt=result.Receipt, receipt_signature=result.ReceiptSignature)
+	pack1= create_game_pay_packet(result.Receipt, result.ReceiptSignature)
 	transs.write(pack1.__serialize__())
 	print('Sent payment proof packet.')	
 	return result
@@ -201,7 +201,7 @@ class EchoClient(asyncio.Protocol):
 				# 	print('BBBBBBBBBBBBBB.')
 				# #print(result.Receipt, result.ReceiptSignature)
 				# 	print(type(result.Receipt), type(result.ReceiptSignature))
-				# 	pack1= create_game_pay_packet(receipt=result.Receipt, receipt_signature=result.ReceiptSignature)
+				# 	pack1= create_game_pay_packet(result.Receipt, result.ReceiptSignature)
 				# 	self.transport.write(pack1.__serialize__())
 				# 	print('Sent payment proof packet.')
 				# else:
