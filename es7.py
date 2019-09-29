@@ -63,15 +63,20 @@ async def example_transfer(bank_client, src, dst, amount, memo, transs):
 	print('Sent payment proof packet.')	
 	return result
 
-def example_verify(bank_client, receipt_bytes, signature_bytes, dst, amount, memo):
-	# playground.create_connection(
+async def example_verify(bank_client, receipt_bytes, signature_bytes, dst, amount, memo):
+	# await playground.create_connection(
 	# 		lambda: bank_client,
 	# 		bank_addr,
 	# 		bank_port,
 	# 		family='default'
 	# 	)
 	# print("Connected. Logging in.")
-	# bank_client.loginToServer()
+
+	# try:
+	# 	await bank_client.loginToServer()
+	# except Exception as e:
+	# 	print("Login error. {}".format(e))
+	# 	return False
 	print('DD1')
 	if not bank_client.verify(receipt_bytes, signature_bytes):
 		Print("Bad receipt. Not correctly signed by bank")
@@ -86,6 +91,8 @@ def example_verify(bank_client, receipt_bytes, signature_bytes, dst, amount, mem
 		Print("Invalid memo. Expected {} got {}".format(memo, ledger_line.memo()))
 		return False
 	print('DD4')
+
+
 	return True
 
 class AutogradeStartTest(PacketType):
@@ -143,6 +150,11 @@ class EchoServer(asyncio.Protocol):
 				#password = getpass.getpass("Enter password for {}: ".format(self.gameholder))
 				password='dpo%symp8h!onic'
 				bank_client = BankClientProtocol(bank_cert, self.gameholder, password)
+				asyncio.ensure_future(playground.create_connection(lambda: bank_client,bank_addr,bank_port,family='default'))
+				asyncio.ensure_future(bank_client.loginToServer())
+				asyncio.ensure_future(example_verify(bank_client, recvpack.receipt, recvpack.receipt_signature, 
+						self.account, self.amount, self.unique_id))
+				loop.run_until_complete()
 				if (example_verify(bank_client, recvpack.receipt, recvpack.receipt_signature, self.account, self.amount, self.unique_id)):
 					print('Server verified the payment, sent starting game response.')
 					self.game.create_game()
