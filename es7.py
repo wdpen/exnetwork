@@ -279,7 +279,7 @@ if __name__ == "__main__":
 			coro = playground.create_server(EchoServer,'localhost',Server_Port_number)
 			asyncio.ensure_future(coro)
 		else:
-			print('The bank client config: 'bank_addr, bank_port, bank_username)
+			print('The bank client config: ', bank_addr, bank_port, bank_username)
 			yngo=input('If the above message is right, press y: ')
 			if yngo=='y':
 				loop = asyncio.get_event_loop()
