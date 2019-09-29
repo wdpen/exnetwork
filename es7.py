@@ -152,8 +152,7 @@ class EchoServer(asyncio.Protocol):
 				bank_client = BankClientProtocol(bank_cert, self.gameholder, password)
 				asyncio.ensure_future(playground.create_connection(lambda: bank_client,bank_addr,bank_port,family='default'))
 				asyncio.ensure_future(bank_client.loginToServer())
-				asyncio.ensure_future(example_verify(bank_client, recvpack.receipt, recvpack.receipt_signature, 
-						self.account, self.amount, self.unique_id))
+				#asyncio.ensure_future(example_verify(bank_client, recvpack.receipt, recvpack.receipt_signature, self.account, self.amount, self.unique_id))
 				loop.run_until_complete()
 				if (example_verify(bank_client, recvpack.receipt, recvpack.receipt_signature, self.account, self.amount, self.unique_id)):
 					print('Server verified the payment, sent starting game response.')
