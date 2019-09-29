@@ -63,36 +63,46 @@ async def example_transfer(bank_client, src, dst, amount, memo, transs):
 	print('Sent payment proof packet.')	
 	return result
 
-def example_verify(bank_client, receipt_bytes, signature_bytes, dst, amount, memo):
-	# await playground.create_connection(
-	# 		lambda: bank_client,
-	# 		bank_addr,
-	# 		bank_port,
-	# 		family='default'
-	# 	)
-	# print("Connected. Logging in.")
+async def example_verify(bank_client, receipt_bytes, signature_bytes, dst, amount, memo, transs, gaa):
+	await playground.create_connection(
+			lambda: bank_client,
+			bank_addr,
+			bank_port,
+			family='default'
+		)
+	print("Connected. Logging in.")
 
-	# try:
-	# 	await bank_client.loginToServer()
-	# except Exception as e:
-	# 	print("Login error. {}".format(e))
-	# 	return False
+	try:
+		await bank_client.loginToServer()
+	except Exception as e:
+		print("Login error. {}".format(e))
+		return False
+	flg=True
 	print('DD1')
 	if not bank_client.verify(receipt_bytes, signature_bytes):
 		Print("Bad receipt. Not correctly signed by bank")
-		return False
+		flg=False
 	print('DD2')
 	ledger_line = LedgerLineStorage.deserialize(receipt_bytes)
 	print('DD3')
 	if ledger_line.getTransactionAmount(dst) != amount:
 		Print("Invalid amount. Expected {} got {}".format(amount, ledger_line.getTransactionAmount(dst)))
-		return False
+		flg=False
 	elif ledger_line.memo(dst) != memo:
 		Print("Invalid memo. Expected {} got {}".format(memo, ledger_line.memo()))
-		return False
+		flg=False
 	print('DD4')
-
-
+	if flg:
+		print('Server verified the payment, sent starting game response.')
+		gaa.create_game()
+		gaa.start()		
+		for a in gaa.agents:
+			asyncio.ensure_future(a)
+	else:
+		pack1=create_game_response('', 'dead')
+		transs.write(pack1.__serialize__())
+		print('Server Sent rejected response message.')
+		loop.stop()
 	return True
 
 class AutogradeStartTest(PacketType):
@@ -150,22 +160,24 @@ class EchoServer(asyncio.Protocol):
 				#password = getpass.getpass("Enter password for {}: ".format(self.gameholder))
 				password='dpo%symp8h!onic'
 				bank_client = BankClientProtocol(bank_cert, self.gameholder, password)
-				asyncio.ensure_future(playground.create_connection(lambda: bank_client,bank_addr,bank_port,family='default'))
-				loop.run_until_complete()
-				asyncio.ensure_future(bank_client.loginToServer())
-				#asyncio.ensure_future(example_verify(bank_client, recvpack.receipt, recvpack.receipt_signature, self.account, self.amount, self.unique_id))
-				loop.run_until_complete()
-				if (example_verify(bank_client, recvpack.receipt, recvpack.receipt_signature, self.account, self.amount, self.unique_id)):
-					print('Server verified the payment, sent starting game response.')
-					self.game.create_game()
-					self.game.start()		
-					for a in self.game.agents:
-						asyncio.ensure_future(a)
-				else:
-					pack1=create_game_response('', 'dead')
-					self.transport.write(pack1.__serialize__())
-					print('Server Sent rejected response message.')
-					loop.stop()
+				loop.run_until_complete(example_verify(bank_client, recvpack.receipt, recvpack.receipt_signature,
+									 self.account, self.amount, self.unique_id, self.transport, self.game))
+				# asyncio.ensure_future(playground.create_connection(lambda: bank_client,bank_addr,bank_port,family='default'))
+				# loop.run_until_complete()
+				# asyncio.ensure_future(bank_client.loginToServer())
+				# #asyncio.ensure_future(example_verify(bank_client, recvpack.receipt, recvpack.receipt_signature, self.account, self.amount, self.unique_id))
+				# loop.run_until_complete()
+				# if (example_verify(bank_client, recvpack.receipt, recvpack.receipt_signature, self.account, self.amount, self.unique_id)):
+				# 	print('Server verified the payment, sent starting game response.')
+				# 	self.game.create_game()
+				# 	self.game.start()		
+				# 	for a in self.game.agents:
+				# 		asyncio.ensure_future(a)
+				# else:
+				# 	pack1=create_game_response('', 'dead')
+				# 	self.transport.write(pack1.__serialize__())
+				# 	print('Server Sent rejected response message.')
+				# 	loop.stop()
 				continue
 			if (recvpack.DEFINITION_IDENTIFIER=='gamecommunication') and (zenith_nadir==0):
 				if self.game.status == "playing":
