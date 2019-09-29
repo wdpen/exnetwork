@@ -187,14 +187,17 @@ class EchoClient(asyncio.Protocol):
 				print(recvpack.unique_id, recvpack.account, recvpack.amount)
 				password = getpass.getpass("Enter password for {}: ".format(self.username))
 				bank_client = BankClientProtocol(bank_cert, self.username, password) 
-				#result = loop.run_until_complete(example_transfer(bank_client, self.useraccount, recvpack.account, recvpack.amount, recvpack.unique_id))
-				asyncio.ensure_future(result=example_transfer(bank_client, self.useraccount, recvpack.account, recvpack.amount, recvpack.unique_id))
-				print('BBBBBBBBBBBBBB.')
+				result = loop.run_until_complete(example_transfer(bank_client, self.useraccount, recvpack.account, recvpack.amount, recvpack.unique_id))
+				#asyncio.ensure_future(result=example_transfer(bank_client, self.useraccount, recvpack.account, recvpack.amount, recvpack.unique_id))
+				if result:
+					print('BBBBBBBBBBBBBB.')
 				#print(result.Receipt, result.ReceiptSignature)
-				print(type(result.Receipt), type(result.ReceiptSignature))
-				pack1= create_game_pay_packet(receipt=result.Receipt, receipt_signature=result.ReceiptSignature)
-				self.transport.write(pack1.__serialize__())
-				print('Sent payment proof packet.')
+					print(type(result.Receipt), type(result.ReceiptSignature))
+					pack1= create_game_pay_packet(receipt=result.Receipt, receipt_signature=result.ReceiptSignature)
+					self.transport.write(pack1.__serialize__())
+					print('Sent payment proof packet.')
+				else:
+					print('EEfffEeeee.')
 				continue
 
 			if (recvpack.DEFINITION_IDENTIFIER=='gamecommunication') and (recvpack.zenith_nadir==1):
