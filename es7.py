@@ -168,7 +168,7 @@ class EchoClient(asyncio.Protocol):
 
 	def connection_made(self, transport):
 		self.transport = transport
-		pack1=AutogradeStartTest(name='Haoshuai Ding',team=7,email='dhaoshu1@jhu.edu',port=1812,packet_file=b'')
+		pack1=AutogradeStartTest(name='Haoshuai Ding',team=7,email='dhaoshu1@jhu.edu',port=1810,packet_file=b'')
 		with open('es7_mypacket.py','rb') as f:
 			pack1.packet_file=f.read()
 		print('Sent AutogradeStartTest packet.')
@@ -233,7 +233,7 @@ if __name__ == "__main__":
 		if ('server' in sys.argv[1:]):
 			loop=asyncio.get_event_loop()
 			#coro = playground.create_server(EchoServer,'20191.100.100.1',1810)
-			coro = playground.create_server(EchoServer,'localhost',1812)
+			coro = playground.create_server(EchoServer,'localhost',1810)
 			asyncio.ensure_future(coro)
 		else:
 			print(bank_addr, bank_port, bank_username)
