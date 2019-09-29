@@ -63,7 +63,7 @@ async def example_transfer(bank_client, src, dst, amount, memo, transs):
 	print('Sent payment proof packet.')	
 	return result
 
-async def example_verify(bank_client, receipt_bytes, signature_bytes, dst, amount, memo):
+def example_verify(bank_client, receipt_bytes, signature_bytes, dst, amount, memo):
 	# await playground.create_connection(
 	# 		lambda: bank_client,
 	# 		bank_addr,
