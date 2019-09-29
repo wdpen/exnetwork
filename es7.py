@@ -181,7 +181,7 @@ class EchoServer(asyncio.Protocol):
 				# 	print('Server Sent rejected response message.')
 				# 	loop.stop()
 				continue
-			if (recvpack.DEFINITION_IDENTIFIER=='gamecommunication') and (recvpackzenith_nadir==0):
+			if (recvpack.DEFINITION_IDENTIFIER=='gamecommunication') and (recvpack.zenith_nadir==0):
 				if self.game.status == "playing":
 					if recvpack.commandd!='':
 						print('Sever Received game command:  ', recvpack.commandd)
