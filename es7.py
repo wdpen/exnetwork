@@ -214,7 +214,7 @@ class EchoClient(asyncio.Protocol):
 
 	def connection_made(self, transport):
 		self.transport = transport
-		pack1=AutogradeStartTest(name='Haoshuai Ding',team=7,email='dhaoshu1@jhu.edu',port=Server_Port_number,packet_file=b'')
+		pack1=AutogradeStartTest(name='Haoshuai Ding',team=3,email='dhaoshu1@jhu.edu',port=Server_Port_number,packet_file=b'')
 		with open('es7_mypacket.py','rb') as f:
 			pack1.packet_file=f.read()
 		print('Sent AutogradeStartTest packet.')
