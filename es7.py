@@ -104,7 +104,7 @@ class EchoServer(asyncio.Protocol):
 		self.game=EscapeRoomGame(output=self.senddata)
 		self.gameholder='dhaoshu1'
 		self.account='dhaoshu1_account'
-		self.amount=10
+		self.amount=9
 		self.unique_id=None
 
 	def connection_made(self, transport):
