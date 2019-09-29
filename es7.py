@@ -19,6 +19,7 @@ bank_stack     =     bankconfig.get_parameter("CLIENT", "stack","default")
 bank_username  =     bankconfig.get_parameter("CLIENT", "username")
 certPath = os.path.join(bankconfig.path(), "bank.cert")
 bank_cert = loadCertFromFile(certPath)
+
 async def example_transfer(bank_client, src, dst, amount, memo):
 	await playground.create_connection(
 			lambda: bank_client,
@@ -47,7 +48,8 @@ async def example_transfer(bank_client, src, dst, amount, memo):
 	except Exception as e:
 		print("Could not transfer because {}".format(e))
 		return False
-
+	print
+	print('Transfer Money Completed.')
 	return result
 
 def example_verify(bank_client, receipt_bytes, signature_bytes, dst, amount, memo):
@@ -176,7 +178,6 @@ class EchoClient(asyncio.Protocol):
 					pack1=create_game_init_packet(self.username)			
 					self.transport.write(pack1.__serialize__())
 					print('Sent username packet.',pack1)
-					#self.transport.write(pack1)					
 					self.fla=1
 				continue					
 
@@ -185,6 +186,8 @@ class EchoClient(asyncio.Protocol):
 				password = getpass.getpass("Enter password for {}: ".format(self.username))
 				bank_client = BankClientProtocol(bank_cert, self.username, password) 
 				result = loop.run_until_complete(example_transfer(bank_client, self.useraccount, recvpack.account, recvpack.amount, recvpack.unique_id))
+				print('BBBBBBBBBBBBBB.')
+				print(result.Receipt, result.ReceiptSignature)
 				print(type(result.Receipt), type(result.ReceiptSignature))
 				pack1= create_game_pay_packet(receipt=result.Receipt, receipt_signature=result.ReceiptSignature)
 				self.transport.write(pack1.__serialize__())
