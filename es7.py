@@ -104,12 +104,12 @@ class EchoServer(asyncio.Protocol):
 		self.game=EscapeRoomGame(output=self.senddata)
 		self.gameholder='dhaoshu1'
 		self.account='dhaoshu1_account'
-		self.amount=9
+		self.amount=10
 		self.unique_id=None
 
 	def connection_made(self, transport):
 		self.transport = transport
-		print('Info: A client has connected to the game.')
+		print('Info From Server: A client has connected to the game.')
 
 	def data_received(self, data):
 		dd=PacketType.Deserializer()
@@ -123,11 +123,11 @@ class EchoServer(asyncio.Protocol):
 				print('Server Sent require pay packet.')
 				continue
 			if (recvpack.DEFINITION_IDENTIFIER=='bankreceiptverify'):
-				print('Server Received receipt: ', result.Receipt, result.ReceiptSignature)
+				print('Server Received receipt: ', recvpack.receipt, recvpack.receipt_signature)
 				password = getpass.getpass("Enter password for {}: ".format(self.gameholder))
 				bank_client = BankClientProtocol(bank_cert, self.gameholder, password)
 				if (example_verify(bank_client, recvpack.receipt, recvpack.receipt_signature, self.account, self.amount, self.unique_id)):
-					print('Server Sent starting game response.')
+					print('Server verified the payment, sent starting game response.')
 					self.game.create_game()
 					self.game.start()		
 					for a in self.game.agents:
