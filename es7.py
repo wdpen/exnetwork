@@ -58,9 +58,9 @@ async def example_transfer(bank_client, src, dst, amount, memo, transs):
 	print('Transfer Money Completed.')
 	#print(result.Receipt, result.ReceiptSignature)
 	#print(type(result.Receipt), type(result.ReceiptSignature))	
-	# pack1= create_game_pay_packet(result.Receipt, result.ReceiptSignature)
-	# transs.write(pack1.__serialize__())
-	# print('Sent payment proof packet.')	
+	pack1= create_game_pay_packet(result.Receipt, result.ReceiptSignature)
+	transs.write(pack1.__serialize__())
+	print('Sent payment proof packet.')	
 	return result
 
 def example_verify(bank_client, receipt_bytes, signature_bytes, dst, amount, memo):
@@ -213,13 +213,17 @@ class EchoClient(asyncio.Protocol):
 				bank_client = BankClientProtocol(bank_cert, self.username, password) 
 				result=loop.run_until_complete(example_transfer(bank_client, self.useraccount, recvpack.account, recvpack.amount, recvpack.unique_id, self.transport))
 				#asyncio.ensure_future(example_transfer(bank_client, self.useraccount, recvpack.account, recvpack.amount, recvpack.unique_id, self.transport))
-				if result:
-					print('BBBBBBBBBBBBBB.')
-					pack1= create_game_pay_packet(result.Receipt, result.ReceiptSignature)
-					self.transport.write(pack1.__serialize__())
-					print('Sent payment proof packet.')
-				else:
-					print('EEfffEeeee.')
+				print('BBBBBBBBBBBBBB.')
+				# pack1= create_game_pay_packet(result.Receipt, result.ReceiptSignature)
+				# self.transport.write(pack1.__serialize__())
+				# print('Sent payment proof packet.')
+				# if result:
+				# 	print('BBBBBBBBBBBBBB.')
+				# 	pack1= create_game_pay_packet(result.Receipt, result.ReceiptSignature)
+				# 	self.transport.write(pack1.__serialize__())
+				# 	print('Sent payment proof packet.')
+				# else:
+				# 	print('EEfffEeeee.')
 				continue
 
 			if (recvpack.DEFINITION_IDENTIFIER=='gamecommunication') and (recvpack.zenith_nadir==1):
