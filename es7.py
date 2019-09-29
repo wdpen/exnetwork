@@ -80,16 +80,16 @@ async def example_verify(bank_client, receipt_bytes, signature_bytes, dst, amoun
 	flg=True
 	print('DD1')
 	if not bank_client.verify(receipt_bytes, signature_bytes):
-		Print("Bad receipt. Not correctly signed by bank")
+		print("Bad receipt. Not correctly signed by bank")
 		flg=False
 	print('DD2')
 	ledger_line = LedgerLineStorage.deserialize(receipt_bytes)
 	print('DD3')
 	if ledger_line.getTransactionAmount(dst) != amount:
-		Print("Invalid amount. Expected {} got {}".format(amount, ledger_line.getTransactionAmount(dst)))
+		print("Invalid amount. Expected {} got {}".format(amount, ledger_line.getTransactionAmount(dst)))
 		flg=False
 	elif ledger_line.memo(dst) != memo:
-		Print("Invalid memo. Expected {} got {}".format(memo, ledger_line.memo()))
+		print("Invalid memo. Expected {} got {}".format(memo, ledger_line.memo()))
 		flg=False
 	print('DD4')
 	if flg:
