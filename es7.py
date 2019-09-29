@@ -37,7 +37,7 @@ async def example_transfer(bank_client, src, dst, amount, memo, transs):
 	except Exception as e:
 		print("Login error. {}".format(e))
 		return False
-	print('111111')
+	#print('111111')
 	try:
 		await bank_client.switchAccount(src)
 	except Exception as e:
@@ -45,7 +45,7 @@ async def example_transfer(bank_client, src, dst, amount, memo, transs):
 			src,
 			e))
 		return False
-	print('222222')
+	#print('222222')
 	try:
 		result = await bank_client.transfer(dst, amount, memo)
 	except Exception as e:
@@ -53,8 +53,8 @@ async def example_transfer(bank_client, src, dst, amount, memo, transs):
 		return False
 	print
 	print('Transfer Money Completed.')
-	print(result.Receipt, result.ReceiptSignature)
-	print(type(result.Receipt), type(result.ReceiptSignature))	
+	#print(result.Receipt, result.ReceiptSignature)
+	#print(type(result.Receipt), type(result.ReceiptSignature))	
 	pack1= create_game_pay_packet(result.Receipt, result.ReceiptSignature)
 	transs.write(pack1.__serialize__())
 	print('Sent payment proof packet.')	
@@ -168,18 +168,18 @@ class EchoClient(asyncio.Protocol):
 
 	def connection_made(self, transport):
 		self.transport = transport
-		pack1=AutogradeStartTest(name='Haoshuai Ding',team=7,email='dhaoshu1@jhu.edu',port=1810,packet_file=b'')
+		pack1=AutogradeStartTest(name='Haoshuai Ding',team=7,email='dhaoshu1@jhu.edu',port=1812,packet_file=b'')
 		with open('es7_mypacket.py','rb') as f:
 			pack1.packet_file=f.read()
 		print('Sent AutogradeStartTest packet.')
 		self.transport.write(pack1.__serialize__())
 
 	def data_received(self, data):
-		print(data)
+		#print(data)
 		dd=PacketType.Deserializer()
 		dd.update(data)
 		for recvpack in dd.nextPackets():
-			print(recvpack.DEFINITION_IDENTIFIER)
+			#print(recvpack.DEFINITION_IDENTIFIER)
 			if recvpack.DEFINITION_IDENTIFIER=='20194.exercise6.autogradesubmitresponse':
 				print(recvpack.test_id,recvpack.submit_status,recvpack.client_status,recvpack.server_status,recvpack.error)
 				if (self.fla==0):
@@ -233,7 +233,7 @@ if __name__ == "__main__":
 		if ('server' in sys.argv[1:]):
 			loop=asyncio.get_event_loop()
 			#coro = playground.create_server(EchoServer,'20191.100.100.1',1810)
-			coro = playground.create_server(EchoServer,'localhost',1810)
+			coro = playground.create_server(EchoServer,'localhost',1812)
 			asyncio.ensure_future(coro)
 		else:
 			print(bank_addr, bank_port, bank_username)
