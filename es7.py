@@ -50,6 +50,8 @@ async def example_transfer(bank_client, src, dst, amount, memo):
 		return False
 	print
 	print('Transfer Money Completed.')
+	print(result.Receipt, result.ReceiptSignature)
+	print(type(result.Receipt), type(result.ReceiptSignature))	
 	return result
 
 def example_verify(bank_client, receipt_bytes, signature_bytes, dst, amount, memo):
