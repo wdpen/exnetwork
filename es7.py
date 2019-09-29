@@ -222,9 +222,14 @@ if __name__ == "__main__":
 			coro = playground.create_server(EchoServer,'localhost',1810)
 			asyncio.ensure_future(coro)
 		else:
-			loop = asyncio.get_event_loop()
-			coro = playground.create_connection(EchoClient,'20194.0.0.19000',19007)
-			client = loop.run_until_complete(coro)			
+			print(bank_addr, bank_port, bank_username)
+			yngo=input('If the above message is right, press y: ')
+			if yngo=='y':
+				loop = asyncio.get_event_loop()
+				coro = playground.create_connection(EchoClient,'20194.0.0.19000',19007)
+				client = loop.run_until_complete(coro)
+			else:
+				return			
 		try:
 			loop.run_forever()
 		except KeyboardInterrupt:
