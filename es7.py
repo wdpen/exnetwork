@@ -187,8 +187,8 @@ class EchoClient(asyncio.Protocol):
 				print(recvpack.unique_id, recvpack.account, recvpack.amount)
 				password = getpass.getpass("Enter password for {}: ".format(self.username))
 				bank_client = BankClientProtocol(bank_cert, self.username, password) 
-				#result = loop.run_until_complete(example_transfer(bank_client, self.useraccount, recvpack.account, recvpack.amount, recvpack.unique_id))
-				asyncio.ensure_future(result=example_transfer(bank_client, self.useraccount, recvpack.account, recvpack.amount, recvpack.unique_id))
+				result = loop.run_until_complete(example_transfer(bank_client, self.useraccount, recvpack.account, recvpack.amount, recvpack.unique_id))
+				#asyncio.ensure_future(result=example_transfer(bank_client, self.useraccount, recvpack.account, recvpack.amount, recvpack.unique_id))
 				print('BBBBBBBBBBBBBB.')
 				#print(result.Receipt, result.ReceiptSignature)
 				print(type(result.Receipt), type(result.ReceiptSignature))
@@ -230,7 +230,8 @@ if __name__ == "__main__":
 			if yngo=='y':
 				loop = asyncio.get_event_loop()
 				coro = playground.create_connection(EchoClient,'20194.0.0.19000',19007)
-				client = loop.run_until_complete(coro)
+				asyncio.ensure_future(coro)
+				#client = loop.run_until_complete(coro)
 			else:
 				raise Exception('Not able to process.')			
 		try:
