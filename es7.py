@@ -78,20 +78,20 @@ async def example_verify(bank_client, receipt_bytes, signature_bytes, dst, amoun
 		print("Login error. {}".format(e))
 		return False
 	flg=True
-	print('DD1')
+	#print('DD1')
 	if not bank_client.verify(receipt_bytes, signature_bytes):
 		print("Bad receipt. Not correctly signed by bank")
 		flg=False
-	print('DD2')
+	#print('DD2')
 	ledger_line = LedgerLineStorage.deserialize(receipt_bytes)
-	print('DD3')
+	#print('DD3')
 	if ledger_line.getTransactionAmount(dst) != amount:
 		print("Invalid amount. Expected {} got {}".format(amount, ledger_line.getTransactionAmount(dst)))
 		flg=False
 	elif ledger_line.memo(dst) != memo:
 		print("Invalid memo. Expected {} got {}".format(memo, ledger_line.memo()))
 		flg=False
-	print('DD4')
+	#print('DD4')
 	flg=True
 	if flg:
 		print('Server verified the payment, sent starting game response.')
@@ -145,6 +145,7 @@ class EchoServer(asyncio.Protocol):
 		print('Info From Server: A client has connected to the game.')
 
 	def data_received(self, data):
+		print(data)
 		dd=PacketType.Deserializer()
 		dd.update(data)
 		for recvpack in dd.nextPackets():
