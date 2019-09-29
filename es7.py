@@ -44,9 +44,7 @@ async def example_transfer(bank_client, src, dst, amount, memo, transs):
 	try:
 		await bank_client.switchAccount(src)
 	except Exception as e:
-		print("Could not set source account as {} because {}".format(
-			src,
-			e))
+		print("Could not set source account as {} because {}".format(src,e))
 		return False
 	#print('222222')
 	try:
@@ -184,14 +182,14 @@ class EchoServer(asyncio.Protocol):
 			if (recvpack.DEFINITION_IDENTIFIER=='gamecommunication') and (recvpack.zenith_nadir==0):
 				if self.game.status == "playing":
 					if recvpack.commandd!='':
-						print('Sever Received game command:  ', recvpack.commandd)
+						print('Server Received game command:  ', recvpack.commandd)
 						output = self.game.command(recvpack.commandd)
 				if self.game.status!='playing':
 					loop.stop()
 				continue
 
 	def senddata(self,outdata):
-		print('Sent game response message: ', outdata)
+		print('Server Sent game response message: ', outdata, '\n\t\t  ',self.game.status)
 		packk=create_game_response(outdata, self.game.status)
 		self.transport.write(packk.__serialize__())
 
@@ -228,12 +226,13 @@ class EchoClient(asyncio.Protocol):
 				if (self.fla==0):
 					pack1=create_game_init_packet(self.username)			
 					self.transport.write(pack1.__serialize__())
-					print('Sent username packet.',pack1)
+					print('Sent username packet.')
 					self.fla=1
 				continue					
 
-			if recvpack.DEFINITION_IDENTIFIER=='20194.requirepaypacket':
-				print(recvpack.unique_id, recvpack.account, recvpack.amount)
+			if process_game_require_pay_packet(recvpack):
+			#if recvpack.DEFINITION_IDENTIFIER=='20194.requirepaypacket':
+				print('Received Required Payment meg: ', recvpack.unique_id, recvpack.account, recvpack.amount)
 				#password = getpass.getpass("Enter password for {}: ".format(self.username))
 				password='dpo%symp8h!onic'
 				bank_client = BankClientProtocol(bank_cert, self.username, password) 
@@ -253,7 +252,7 @@ class EchoClient(asyncio.Protocol):
 				continue
 
 			if (recvpack.DEFINITION_IDENTIFIER=='gamecommunication') and (recvpack.zenith_nadir==1):
-				print(recvpack.gameresponse, '   ', recvpack.statusgame)
+				print('Received game response: ', recvpack.gameresponse, '\n\t\t  ', recvpack.statusgame)
 				if (recvpack.gameresponse!='') and (recvpack.statusgame!='dead'):
 					if self.es_iter<len(self.escapestep):
 						if self.es_iter!=self.es_itst:
@@ -280,7 +279,7 @@ if __name__ == "__main__":
 			coro = playground.create_server(EchoServer,'localhost',Server_Port_number)
 			asyncio.ensure_future(coro)
 		else:
-			print(bank_addr, bank_port, bank_username)
+			print('The bank client config: 'bank_addr, bank_port, bank_username)
 			yngo=input('If the above message is right, press y: ')
 			if yngo=='y':
 				loop = asyncio.get_event_loop()
