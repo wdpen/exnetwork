@@ -34,7 +34,7 @@ async def example_transfer(bank_client, src, dst, amount, memo):
 	except Exception as e:
 		print("Login error. {}".format(e))
 		return False
-
+	print('111111')
 	try:
 		await bank_client.switchAccount(src)
 	except Exception as e:
@@ -42,7 +42,7 @@ async def example_transfer(bank_client, src, dst, amount, memo):
 			src,
 			e))
 		return False
-
+	print('222222')
 	try:
 		result = await bank_client.transfer(dst, amount, memo)
 	except Exception as e:
