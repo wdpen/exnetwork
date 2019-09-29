@@ -23,7 +23,8 @@ bank_username  =     bankconfig.get_parameter("CLIENT", "username")
 certPath = os.path.join(bankconfig.path(), "bank.cert")
 bank_cert = loadCertFromFile(certPath)
 
-Server_Port_number=1943+int(random.random()*1000)+int(random.random()*1000)
+#Server_Port_number=1943+int(random.random()*1000)+int(random.random()*1000)
+Server_Port_number=18302
 
 async def example_transfer(bank_client, src, dst, amount, memo, transs):
 	await playground.create_connection(
