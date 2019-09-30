@@ -199,7 +199,7 @@ class EchoServer(asyncio.Protocol):
 				continue
 
 	def senddata(self,outdata):
-		print('Server Sent game response message: ', outdata, '\n\t\t  ',self.game.status)
+		print('Server Sent game response message: ', outdata, '\t  ',self.game.status)
 		packk=create_game_response(outdata, self.game.status)
 		self.transport.write(packk.__serialize__())
 
@@ -244,7 +244,6 @@ class EchoClient(asyncio.Protocol):
 			#if recvpack.DEFINITION_IDENTIFIER=='20194.requirepaypacket':
 				print('Received Required Payment meg: ', recvpack.unique_id, recvpack.account, recvpack.amount)
 				password = getpass.getpass("Enter password for {}: ".format(self.username))
-				#password='dpo%symp8h!onic'
 				bank_client = BankClientProtocol(bank_cert, self.username, password) 
 				result=loop.run_until_complete(example_transfer(bank_client, self.useraccount,
 					 recvpack.account, recvpack.amount, recvpack.unique_id, self.transport))
@@ -263,7 +262,7 @@ class EchoClient(asyncio.Protocol):
 				continue
 
 			if (recvpack.DEFINITION_IDENTIFIER=='gamecommunication') and (recvpack.zenith_nadir==1):
-				print('Received game response: ', recvpack.gameresponse, '\n\t\t  ', recvpack.statusgame)
+				print('Received game response: ', recvpack.gameresponse, '\t  ', recvpack.statusgame)
 				if (recvpack.gameresponse!='') and (recvpack.statusgame!='dead'):
 					if self.es_iter<len(self.escapestep):
 						if self.es_iter!=self.es_itst:
