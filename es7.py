@@ -79,7 +79,6 @@ async def example_transfer(bank_client, src, dst, amount, memo, transs):
 	# 		family='default'
 	# 	)
 	# print("Connected. Logging in.")
-
 	# try:
 	# 	await bank_client.loginToServer()
 	# except Exception as e:
