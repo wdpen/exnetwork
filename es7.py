@@ -100,7 +100,7 @@ async def example_verify(bank_client, receipt_bytes, signature_bytes, dst, amoun
 		print("Invalid memo. Expected {} got {}".format(memo, ledger_line.memo()))
 		flg=False
 	#print('DD4')
-	flg=True
+	#flg=True
 	if flg:
 		print('Server verified the payment, sent starting game response.')
 		gaa.create_game()
@@ -143,8 +143,8 @@ class AutogradeTestStatus(PacketType):
 class EchoServer(asyncio.Protocol):
 	def __init__(self):
 		self.game=EscapeRoomGame(output=self.senddata)
-		self.gameholder='dhaoshu1'
-		self.account='dhaoshu1_account'
+		self.gameholderusername='dhaoshu1'
+		self.gameholderaccount='dhaoshu1_account'
 		self.amount=10
 		self.unique_id=None
 
@@ -160,24 +160,24 @@ class EchoServer(asyncio.Protocol):
 			if (recvpack.DEFINITION_IDENTIFIER=='gameinitplayername'):
 				print('Server Received username: ',recvpack.username)
 				self.unique_id='Beauty Ball '+str((int(random.random()*10000000)/100))+' '+recvpack.username
-				pack1=create_game_require_pay_packet(self.unique_id, self.account, self.amount)
+				pack1=create_game_require_pay_packet(self.unique_id, self.gameholderaccount, self.amount)
 				self.transport.write(pack1.__serialize__())
 				print('Server Sent require pay packet.')
 				continue
 			if (recvpack.DEFINITION_IDENTIFIER=='bankreceiptverify'):
 				print('Server Received receipt and receipt_signature.')
 				#print('Server Received receipt: ', recvpack.receipt, recvpack.receipt_signature)
-				#password = getpass.getpass("Enter password for {}: ".format(self.gameholder))
-				password='dpo%symp8h!onic'
-				bank_client = BankClientProtocol(bank_cert, self.gameholder, password)
+				password = getpass.getpass("Enter password for {}: ".format(self.gameholderusername))
+				#password='dpo%symp8h!onic'
+				bank_client = BankClientProtocol(bank_cert, self.gameholderusername, password)
 				loop.run_until_complete(example_verify(bank_client, recvpack.receipt, recvpack.receipt_signature,
-									 self.account, self.amount, self.unique_id, self.transport, self.game))
+							self.gameholderaccount, self.amount, self.unique_id, self.transport, self.game))
 				# asyncio.ensure_future(playground.create_connection(lambda: bank_client,bank_addr,bank_port,family='default'))
 				# loop.run_until_complete()
 				# asyncio.ensure_future(bank_client.loginToServer())
-				# #asyncio.ensure_future(example_verify(bank_client, recvpack.receipt, recvpack.receipt_signature, self.account, self.amount, self.unique_id))
+				# #asyncio.ensure_future(example_verify(bank_client, recvpack.receipt, recvpack.receipt_signature, self.gameholderaccount, self.amount, self.unique_id))
 				# loop.run_until_complete()
-				# if (example_verify(bank_client, recvpack.receipt, recvpack.receipt_signature, self.account, self.amount, self.unique_id)):
+				# if (example_verify(bank_client, recvpack.receipt, recvpack.receipt_signature, self.gameholderaccount, self.amount, self.unique_id)):
 				# 	print('Server verified the payment, sent starting game response.')
 				# 	self.game.create_game()
 				# 	self.game.start()		
@@ -247,7 +247,8 @@ class EchoClient(asyncio.Protocol):
 				#password = getpass.getpass("Enter password for {}: ".format(self.username))
 				password='dpo%symp8h!onic'
 				bank_client = BankClientProtocol(bank_cert, self.username, password) 
-				result=loop.run_until_complete(example_transfer(bank_client, self.useraccount, recvpack.account, recvpack.amount, recvpack.unique_id, self.transport))
+				result=loop.run_until_complete(example_transfer(bank_client, self.useraccount,
+					 recvpack.account, recvpack.amount, recvpack.unique_id, self.transport))
 				#asyncio.ensure_future(example_transfer(bank_client, self.useraccount, recvpack.account, recvpack.amount, recvpack.unique_id, self.transport))
 				print('BBBBBBBBBBBBBB.')
 				# pack1= create_game_pay_packet(result.Receipt, result.ReceiptSignature)
@@ -291,14 +292,14 @@ if __name__ == "__main__":
 			asyncio.ensure_future(coro)
 		else:
 			print('The bank client config: ', bank_addr, bank_port, bank_username)
-			yngo=input('If the above message is right, press y: ')
+			yngo=input('If the above message is right, continue? [y/n]: ')
 			if yngo=='y':
 				loop = asyncio.get_event_loop()
 				coro = playground.create_connection(EchoClient,'20194.0.0.19000',19007)
 				asyncio.ensure_future(coro)
 				#client = loop.run_until_complete(coro)
 			else:
-				raise Exception('Not able to process.')			
+				raise Exception('Not able to process, need reconfig.')			
 		try:
 			loop.run_forever()
 		except KeyboardInterrupt:
