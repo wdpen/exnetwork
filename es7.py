@@ -71,7 +71,7 @@ async def example_transfer(bank_client, src, dst, amount, memo, transs):
 		print("TESTING:::Good receipt.")
 	return result
 
- def example_verify(bank_client, receipt_bytes, signature_bytes, dst, amount, memo, transs, gaa):
+def example_verify(bank_client, receipt_bytes, signature_bytes, dst, amount, memo, transs, gaa):
 	# await playground.create_connection(
 	# 		lambda: bank_client,
 	# 		bank_addr,
