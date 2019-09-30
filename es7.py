@@ -16,10 +16,14 @@ from BankCore import LedgerLineStorage, LedgerLine
 from OnlineBank import BankClientProtocol, OnlineBankConfig
 
 bankconfig = OnlineBankConfig()
-bank_addr =     bankconfig.get_parameter("CLIENT", "bank_addr")
-bank_port = int(bankconfig.get_parameter("CLIENT", "bank_port"))
+# bank_addr =     bankconfig.get_parameter("CLIENT", "bank_addr")
+# bank_port = int(bankconfig.get_parameter("CLIENT", "bank_port"))
 bank_stack     =     bankconfig.get_parameter("CLIENT", "stack","default")
-bank_username  =     bankconfig.get_parameter("CLIENT", "username")
+# bank_username  =     bankconfig.get_parameter("CLIENT", "username")
+
+bank_addr='20194.0.0.19000'
+bank_port='777'
+bank_username='dhaoshu1'
 
 # certPath = os.path.join(bankconfig.path(), "bank.cert")
 certPath = os.path.join('20194_online_bank.cert')
