@@ -20,7 +20,9 @@ bank_addr =     bankconfig.get_parameter("CLIENT", "bank_addr")
 bank_port = int(bankconfig.get_parameter("CLIENT", "bank_port"))
 bank_stack     =     bankconfig.get_parameter("CLIENT", "stack","default")
 bank_username  =     bankconfig.get_parameter("CLIENT", "username")
-certPath = os.path.join(bankconfig.path(), "bank.cert")
+
+# certPath = os.path.join(bankconfig.path(), "bank.cert")
+certPath = os.path.join('20194_online_bank.cert')
 bank_cert = loadCertFromFile(certPath)
 
 #Server_Port_number=1943+int(random.random()*1000)+int(random.random()*1000)
@@ -79,7 +81,7 @@ async def example_verify(bank_client, receipt_bytes, signature_bytes, dst, amoun
 	except Exception as e:
 		print("Login error. {}".format(e))
 		return False
-	flg=True
+	#flg=True
 	#print('DD1')
 	if not bank_client.verify(receipt_bytes, signature_bytes):
 		print("Bad receipt. Not correctly signed by bank")
