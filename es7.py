@@ -71,20 +71,20 @@ async def example_transfer(bank_client, src, dst, amount, memo, transs):
 		print("TESTING:::Good receipt.")
 	return result
 
-async def example_verify(bank_client, receipt_bytes, signature_bytes, dst, amount, memo, transs, gaa):
-	await playground.create_connection(
-			lambda: bank_client,
-			bank_addr,
-			bank_port,
-			family='default'
-		)
-	print("Connected. Logging in.")
+ def example_verify(bank_client, receipt_bytes, signature_bytes, dst, amount, memo, transs, gaa):
+	# await playground.create_connection(
+	# 		lambda: bank_client,
+	# 		bank_addr,
+	# 		bank_port,
+	# 		family='default'
+	# 	)
+	# print("Connected. Logging in.")
 
-	try:
-		await bank_client.loginToServer()
-	except Exception as e:
-		print("Login error. {}".format(e))
-		return False
+	# try:
+	# 	await bank_client.loginToServer()
+	# except Exception as e:
+	# 	print("Login error. {}".format(e))
+	# 	return False
 	#print('DD1')
 	flg=True
 	if not bank_client.verify(receipt_bytes, signature_bytes):
@@ -169,8 +169,10 @@ class EchoServer(asyncio.Protocol):
 				#password = getpass.getpass("Enter password for {}: ".format(self.gameholderusername))
 				password='dpo%symp8h!onic'
 				bank_client = BankClientProtocol(bank_cert, self.gameholderusername, password)
-				loop.run_until_complete(example_verify(bank_client, recvpack.receipt, recvpack.receipt_signature,
-							self.gameholderaccount, self.amount, self.unique_id, self.transport, self.game))
+				# loop.run_until_complete(example_verify(bank_client, recvpack.receipt, recvpack.receipt_signature,
+				# 			self.gameholderaccount, self.amount, self.unique_id, self.transport, self.game))
+				example_verify(bank_client, recvpack.receipt, recvpack.receipt_signature,
+							self.gameholderaccount, self.amount, self.unique_id, self.transport, self.game)
 				# asyncio.ensure_future(playground.create_connection(lambda: bank_client,bank_addr,bank_port,family='default'))
 				# loop.run_until_complete()
 				# asyncio.ensure_future(bank_client.loginToServer())
