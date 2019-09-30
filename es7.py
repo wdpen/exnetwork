@@ -85,21 +85,20 @@ async def example_verify(bank_client, receipt_bytes, signature_bytes, dst, amoun
 	except Exception as e:
 		print("Login error. {}".format(e))
 		return False
-	#flg=True
 	#print('DD1')
+	flg=True
 	if not bank_client.verify(receipt_bytes, signature_bytes):
 		print("Bad receipt. Not correctly signed by bank")
 		flg=False
 	#print('DD2')
 	ledger_line = LedgerLineStorage.deserialize(receipt_bytes)
-	#print('DD3')
 	if ledger_line.getTransactionAmount(dst) != amount:
 		print("Invalid amount. Expected {} got {}".format(amount, ledger_line.getTransactionAmount(dst)))
 		flg=False
 	elif ledger_line.memo(dst) != memo:
 		print("Invalid memo. Expected {} got {}".format(memo, ledger_line.memo()))
 		flg=False
-	#print('DD4')
+	#print('DD3')
 	#flg=True
 	if flg:
 		print('Server verified the payment, sent starting game response.')
@@ -167,8 +166,8 @@ class EchoServer(asyncio.Protocol):
 			if (recvpack.DEFINITION_IDENTIFIER=='bankreceiptverify'):
 				print('Server Received receipt and receipt_signature.')
 				#print('Server Received receipt: ', recvpack.receipt, recvpack.receipt_signature)
-				password = getpass.getpass("Enter password for {}: ".format(self.gameholderusername))
-				#password='dpo%symp8h!onic'
+				#password = getpass.getpass("Enter password for {}: ".format(self.gameholderusername))
+				password='dpo%symp8h!onic'
 				bank_client = BankClientProtocol(bank_cert, self.gameholderusername, password)
 				loop.run_until_complete(example_verify(bank_client, recvpack.receipt, recvpack.receipt_signature,
 							self.gameholderaccount, self.amount, self.unique_id, self.transport, self.game))
@@ -244,8 +243,8 @@ class EchoClient(asyncio.Protocol):
 			if process_game_require_pay_packet(recvpack):
 			#if recvpack.DEFINITION_IDENTIFIER=='20194.requirepaypacket':
 				print('Received Required Payment meg: ', recvpack.unique_id, recvpack.account, recvpack.amount)
-				#password = getpass.getpass("Enter password for {}: ".format(self.username))
-				password='dpo%symp8h!onic'
+				password = getpass.getpass("Enter password for {}: ".format(self.username))
+				#password='dpo%symp8h!onic'
 				bank_client = BankClientProtocol(bank_cert, self.username, password) 
 				result=loop.run_until_complete(example_transfer(bank_client, self.useraccount,
 					 recvpack.account, recvpack.amount, recvpack.unique_id, self.transport))
