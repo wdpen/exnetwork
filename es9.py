@@ -228,7 +228,7 @@ class EchoClient(asyncio.Protocol):
 							print('Sent game command: ',self.escapestep[self.es_iter])
 							self.es_iter+=1
 						else:
-							seli=recvpack.gameresponse.split(' ')
+							seli=ggameresponse.split(' ')
 							if (seli[-1]=='wall'):
 								packk=create_game_command(self.escapestep[self.es_iter])
 								self.transport.write(packk.__serialize__())	
