@@ -44,11 +44,14 @@ class EchoClient(asyncio.Protocol):
 		dd.update(data)
 		for recvpack in dd.nextPackets():
 			print(recvpack.test_id,'\n',recvpack.passed)
+		loop.stop()
 		loop.close()
 		
 if __name__ == "__main__":
 	sw=sys.argv[1:]
-	if sw[0]=='help':
+	if sw=='':
+		print('Need Input arguments:  test_id host port')
+	elif sw[0]=='help':
 		print('ONLY for Playground. Input arguments:  test_id host port')
 	else:
 		loop = asyncio.get_event_loop()
