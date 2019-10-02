@@ -192,7 +192,7 @@ class EchoClient(asyncio.Protocol):
 		print('Sent AutogradeStartTest packet.')
 
 	def data_received(self, data):
-		print(data)
+		#print(data)
 		dd=PacketType.Deserializer()
 		dd.update(data)
 		for recvpack in dd.nextPackets():
@@ -249,7 +249,7 @@ if __name__ == "__main__":
 			yngo=input('If the above message is right, continue? [y/n]: ')
 			if yngo=='y':
 				loop = asyncio.get_event_loop()
-				coro = playground.create_connection(lambda:EchoClient('dhaoshu1','dhaoshu1_account'),'20194.0.0.19000',19009)
+				coro = playground.create_connection(lambda:EchoClient('dhaoshu1','dhaoshu1_account'),'20194.0.0.19000',19008)
 				asyncio.ensure_future(coro)
 				#client = loop.run_until_complete(coro)
 			else:
