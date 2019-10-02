@@ -193,11 +193,11 @@ class EchoClient(asyncio.Protocol):
 		print(self.username)
 
 	def data_received(self, data):
-		print(data)
+		#print(data)
 		dd=PacketType.Deserializer()
 		dd.update(data)
 		for recvpack in dd.nextPackets():
-			print(recvpack.DEFINITION_IDENTIFIER)
+			#print(recvpack.DEFINITION_IDENTIFIER)
 			if recvpack.DEFINITION_IDENTIFIER=='20194.exercise6.autogradesubmitresponse':
 				print(recvpack.test_id,recvpack.submit_status,recvpack.client_status,recvpack.server_status,recvpack.error)
 				if (self.fla==0):
@@ -206,9 +206,8 @@ class EchoClient(asyncio.Protocol):
 					print('Sent username packet.')
 					self.fla=1
 				continue					
-			print('DDDD')
+
 			if process_game_require_pay_packet(recvpack):
-				print('sssss')
 				uunique_id, aaccount, aamount=process_game_require_pay_packet(recvpack)
 				print('Received Required Payment meg: ', uunique_id, aaccount, aamount)
 				password = getpass.getpass("Enter bank password for user {}: ".format(self.username))
@@ -217,7 +216,7 @@ class EchoClient(asyncio.Protocol):
 				# 	 recvpack.account, recvpack.amount, recvpack.unique_id, self.transport))
 				asyncio.ensure_future(example_transfer(bank_client, self.useraccount, aaccount, aamount, uunique_id, self.transport))
 				continue
-			print('GEGE')
+
 			if process_game_response(recvpack):
 				ggameresponse, sstatusgame=process_game_response(recvpack)
 				print('Received game response: ', ggameresponse, '\t  ', sstatusgame)
