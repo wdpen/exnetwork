@@ -190,9 +190,10 @@ class EchoClient(asyncio.Protocol):
 		# 	pack1.packet_file=f.read()		
 		self.transport.write(pack1.__serialize__())
 		print('Sent AutogradeStartTest packet.')
+		print(self.username)
 
 	def data_received(self, data):
-		#print(data)
+		print(data)
 		dd=PacketType.Deserializer()
 		dd.update(data)
 		for recvpack in dd.nextPackets():
