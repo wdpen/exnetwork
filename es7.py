@@ -229,13 +229,13 @@ class EchoClient(asyncio.Protocol):
 				continue					
 
 			if process_game_require_pay_packet(recvpack):
-			#if recvpack.DEFINITION_IDENTIFIER=='20194.requirepaypacket':
+			#if recvpack.DEFINITION_IDENTIFIER=='20194.requirepaypacket':				
 				print('Received Required Payment meg: ', recvpack.unique_id, recvpack.account, recvpack.amount)
 				password = getpass.getpass("Enter password for {}: ".format(self.username))
 				bank_client = BankClientProtocol(bank_cert, self.username, password) 
-				result=loop.run_until_complete(example_transfer(bank_client, self.useraccount,
-					 recvpack.account, recvpack.amount, recvpack.unique_id, self.transport))
-				#asyncio.ensure_future(example_transfer(bank_client, self.useraccount, recvpack.account, recvpack.amount, recvpack.unique_id, self.transport))
+				# result=loop.run_until_complete(example_transfer(bank_client, self.useraccount,
+				# 	 recvpack.account, recvpack.amount, recvpack.unique_id, self.transport))
+				asyncio.ensure_future(example_transfer(bank_client, self.useraccount, recvpack.account, recvpack.amount, recvpack.unique_id, self.transport))
 				print('BBBBBBBBBBBBBB.')
 				# pack1= create_game_pay_packet(result.Receipt, result.ReceiptSignature)
 				# self.transport.write(pack1.__serialize__())
