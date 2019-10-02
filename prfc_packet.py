@@ -15,7 +15,7 @@ def create_game_init_packet(u):
     return GameInitPacket(username=u)
 
 def process_game_init(pkt):
-    if isinstance(pky, GameInitPacket):
+    if isinstance(pkt, GameInitPacket):
         return pkt.username
     else:
         return False
