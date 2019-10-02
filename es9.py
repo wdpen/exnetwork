@@ -217,7 +217,7 @@ class EchoClient(asyncio.Protocol):
 				# 	 recvpack.account, recvpack.amount, recvpack.unique_id, self.transport))
 				asyncio.ensure_future(example_transfer(bank_client, self.useraccount, aaccount, aamount, uunique_id, self.transport))
 				continue
-
+			print('GEGE')
 			if process_game_response(recvpack):
 				ggameresponse, sstatusgame=process_game_response(recvpack)
 				print('Received game response: ', ggameresponse, '\t  ', sstatusgame)
