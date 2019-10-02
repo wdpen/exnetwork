@@ -1,5 +1,5 @@
 from playground.network.packet import PacketType
-from playground.network.packet.fieldtypes import STRING, INT32, BUFFER
+from playground.network.packet.fieldtypes import STRING, INT32, INT8, BUFFER
 from playground.network.packet.fieldtypes.attributes import Optional
 import playground
 

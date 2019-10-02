@@ -5,7 +5,7 @@ from playground.network.common import PlaygroundAddress
 from playground.network.packet import PacketType
 from playground.network.packet.fieldtypes.attributes import Optional
 from playground.common.logging import EnablePresetLogging, PRESET_DEBUG, PRESET_VERBOSE
-from es7_mypacket import *
+from prfc_packet import *
 from escape_room_006 import *
 
 EnablePresetLogging(PRESET_DEBUG)
