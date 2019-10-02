@@ -36,6 +36,7 @@ def create_game_require_pay_packet(un,ac,am):
     return GameRequirePayPacket(unique_id=un, account=ac, amount=am)
 
 def process_game_require_pay_packet(pkt):
+    print(isinstance(pky, GameRequirePayPacket))
     if isinstance(pky, GameRequirePayPacket):
         return pkt.unique_id, pkt.account, pkt.amount
     else:
