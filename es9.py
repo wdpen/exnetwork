@@ -121,7 +121,7 @@ class EchoServer(asyncio.Protocol):
 		dd=PacketType.Deserializer()
 		dd.update(data)
 		for recvpack in dd.nextPackets():
-			#print(recvpack.DEFINITION_IDENTIFIER)
+			print(recvpack.DEFINITION_IDENTIFIER)
 			if process_game_init(recvpack):
 				uusername=process_game_init(recvpack)
 				print('Server Received username: ', uusername)
