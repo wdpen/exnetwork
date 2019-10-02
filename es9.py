@@ -206,8 +206,9 @@ class EchoClient(asyncio.Protocol):
 					print('Sent username packet.')
 					self.fla=1
 				continue					
-
+			print('DDDD')
 			if process_game_require_pay_packet(recvpack):
+				print('sssss')
 				uunique_id, aaccount, aamount=process_game_require_pay_packet(recvpack)
 				print('Received Required Payment meg: ', uunique_id, aaccount, aamount)
 				password = getpass.getpass("Enter bank password for user {}: ".format(self.username))
