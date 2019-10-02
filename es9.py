@@ -154,11 +154,11 @@ class EchoServer(asyncio.Protocol):
 					loop.close()
 				continue
 			if process_game_command(recvpack):
-				ccomand=process_game_command(recvpack)
+				ccommand=process_game_command(recvpack)
 				if self.game.status == "playing":
-					if ccommandd!='':
-						print('Server Received game command:  ', ccommandd)
-						output = self.game.command(ccommandd)
+					if ccommand!='':
+						print('Server Received game command:  ', ccommand)
+						output = self.game.command(ccommand)
 				if self.game.status!='playing':
 					loop.stop()
 					loop.close()
